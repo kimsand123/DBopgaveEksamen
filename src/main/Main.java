@@ -1,4 +1,4 @@
-package test01917;
+package main;
 
 import daoimpl01917.MySQLOperatoerDAO;
 import daointerfaces01917.DALException;

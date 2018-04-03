@@ -3,4 +3,19 @@
   <groupId>DBopgaveEksamen</groupId>
   <artifactId>DBopgaveEksamen</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+  	<dependency>
+  		<groupId>mysql</groupId>
+  		<artifactId>mysql-connector-java</artifactId>
+  	</dependency>
+  </dependencies>
+  <dependencyManagement>
+  	<dependencies>
+  		<dependency>
+  			<groupId>mysql</groupId>
+  			<artifactId>mysql-connector-java</artifactId>
+  			<version>5.1.26</version>
+  		</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>
