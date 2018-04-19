@@ -1,11 +1,11 @@
 package main;
 
 import daoimpl01917.MySQLOperatoerDAO;
-import daointerfaces01917.DALException;
 import dto01917.OperatoerDTO;
 
 import java.sql.SQLException;
 
+import DAO.DALException;
 import connector01917.Connector;
 
 public class Main {
