@@ -1,8 +1,7 @@
-package DAOinterfaces;
+package daointerfaces01917;
 
 import java.util.List;
 
-import daointerfaces01917.DALException;
 import dto01917.OperatoerDTO;
 
 public interface OperatoerDAO {
