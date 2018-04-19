@@ -3,11 +3,12 @@ package daoimpl01917;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import DAO.DALException;
+
 import java.util.ArrayList;
 
 import connector01917.Connector;
-
-import daointerfaces01917.DALException;
 import daointerfaces01917.OperatoerDAO;
 import dto01917.OperatoerDTO;
 
