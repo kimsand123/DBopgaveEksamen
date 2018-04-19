@@ -1,4 +1,4 @@
-package DAOinterfaces;
+package dto01917;
 
 public class ProduktBatchDTO 
 {
