@@ -4,17 +4,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DAO.DAOProductNProvider;
+import dto01917.ProductNProviderDTO;
 
 public class TestProductNProvider {
 
 	public TestProductNProvider() {
 		DAOProductNProvider dao = new DAOProductNProvider();
+		ProductNProviderDTO dto;
 		String varenavn;
 		String leverandoer;
 		double maengde;
 		String line;
 
-		ResultSet rs = dao.getList(); 
+		dao.getList();
+		dto = dao.getDTO();
+		ResultSet rs = dto.getResultSet();
+		
 		System.out.println("Vare                 Leverandør                         Mængde");
 		try {
 			while(rs.next()) {

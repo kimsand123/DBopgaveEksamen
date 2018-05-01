@@ -5,17 +5,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import connector01917.Connector;
 import connector01917.Constant;
+import dto01917.ProductNProviderDTO;
 
 
 public class DAOProductNProvider {
 
 	Connector connection;
+	ProductNProviderDTO dto;
+	
 	public DAOProductNProvider() {
 
 	}
 
-	public ResultSet getList () {
+	public void getList () {
 		ResultSet rs=null;
+
 
 		try {
 			connection = new Connector(Constant.server, Constant.port, Constant.database, Constant.username, Constant.password);		
@@ -41,7 +45,11 @@ public class DAOProductNProvider {
 		}
 
 		//connection.closeConnector();
-		return rs;
+		dto = new ProductNProviderDTO(rs);
+	}
+	
+	public ProductNProviderDTO getDTO() {
+		return this.dto;
 	}
 
 }
