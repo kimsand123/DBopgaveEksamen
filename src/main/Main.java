@@ -6,11 +6,12 @@ import dto01917.OperatoerDTO;
 import java.sql.SQLException;
 
 import DAO.DALException;
+import UseCaseDemoTilEksamen.TestProductNProvider;
 import connector01917.Connector;
 
 public class Main {
 	public static void main(String[] args) {
-		try { new Connector(); } 
+	/*	try { new Connector(); } 
 		catch (InstantiationException e) { e.printStackTrace(); }
 		catch (IllegalAccessException e) { e.printStackTrace(); }
 		catch (ClassNotFoundException e) { e.printStackTrace(); }
@@ -45,7 +46,10 @@ public class Main {
 		
 		System.out.println("Operatoer nummer 5:");
 		try { System.out.println(opr.getOperatoer(5)); }
-		catch (DALException e) { System.out.println(e.getMessage()); }		
+		catch (DALException e) { System.out.println(e.getMessage()); }		*/
+		
+		new TestProductNProvider();
+		
 		
 	}
 }

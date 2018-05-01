@@ -40,7 +40,7 @@ public class DAOProductNProvider {
 			e.printStackTrace();
 		}
 
-		connection.closeConnector();
+		//connection.closeConnector();
 		return rs;
 	}
 
