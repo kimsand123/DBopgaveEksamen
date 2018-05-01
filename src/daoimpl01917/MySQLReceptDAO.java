@@ -67,23 +67,18 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 	}
 
-	private Connection getConnection() throws DALException, SQLException {
+	private Connection getConnection() throws DALException {
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			return DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk",
+					"rgkd49cz");
+		} catch (Exception e) {
+			throw new DALException(e);
 		}
 
-		return DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk",
-				"rgkd49cz");
+		
 	}
 	
 	private Statement getStatement(Connection db) throws SQLException {

@@ -1,4 +1,4 @@
-package DAO;
+package testCases;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,7 +6,7 @@ import daoimpl01917.MySQLReceptDAO;
 import dto01917.ProduktBatchDTO;
 import dto01917.ReceptKompDTOtest;
 import testCases.TestCaseLavOpskrift;
-public class main {
+public class MainTestCaseLavOpskrift {
 
 	public static void main(String[] args) {
 		/*

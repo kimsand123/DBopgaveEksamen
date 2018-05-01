@@ -78,7 +78,12 @@ public class TestCaseLavOpskrift {
 		ProduktBatchKompDTO pbKomp = new ProduktBatchKompDTO(pbDAO.getProduktBatchId(), rbId, tara, netto, oprId);
 		try {
 			pbkDAO.createProduktBatchKomp(pbKomp);
-			System.out.println("raavareBatch for "+komponent.getRaavareNavn()+" er oprettet");
+			System.out.println("produktbatchkomp for "+komponent.getRaavareNavn()+" er oprettet");
+			System.out.println();
+			ProduktBatchKompDTO pbk = pbkDAO.getProduktBatchKomp(pbKomp.getPbId(), rbId);
+			System.out.println("Henter oprettet produktbatchkomponent fra database:");
+			System.out.println("pbId: "+pbk.getPbId()+" rbId: "+pbk.getRbId()+" tara: "+pbk.getTara()+" netto: "+pbk.getNetto()+" oprId: "+pbk.getOprId());
+			System.out.println();
 			System.out.println();
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
