@@ -6,9 +6,10 @@ import java.sql.SQLException;
 import connector01917.Connector;
 import connector01917.Constant;
 import dto01917.ProductNProviderDTO;
+import DAOinterfaces.*;
 
 
-public class DAOProductNProvider {
+public class DAOProductNProvider implements IDAOProductNProvider {
 
 	Connector connection;
 	ProductNProviderDTO dto;
