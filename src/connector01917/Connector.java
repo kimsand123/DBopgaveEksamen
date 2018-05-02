@@ -68,5 +68,14 @@ public class Connector
 		catch (SQLException e) { throw new DALException(e); }
 	}
 	
+	public void closeConnector() {
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	
 }
