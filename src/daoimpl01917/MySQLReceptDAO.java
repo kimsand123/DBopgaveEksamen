@@ -11,7 +11,6 @@ import java.util.List;
 
 import DAO.DALException;
 import daointerfaces01917.ReceptDAO;
-import dto01917.OperatoerDTO;
 import dto01917.ReceptDTO;
 import dto01917.ReceptKompDTOtest;
 
