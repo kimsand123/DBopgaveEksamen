@@ -200,6 +200,12 @@ Delimiter //
 CREATE OR REPLACE VIEW v_recept_komponenter AS
 select * from raavare t1 NATURAL JOIN receptkomponent t2
 // Delimiter;    
+
+-- Viser alle recepter sorteret efter navn.
+DELIMITER //
+CREATE OR REPLACE VIEW v_recepter_fcm AS
+select * from recept order by recept_navn
+// DELIMITER ;
     
 
 Delimiter //
