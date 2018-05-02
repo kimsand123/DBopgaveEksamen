@@ -155,7 +155,6 @@ INSERT INTO operatoer_roller VALUES (2, 'Operatoer');
 INSERT INTO operatoer_roller VALUES (3, 'Foreman');
 INSERT INTO operatoer_roller VALUES (3, 'Master_Chef');
 
-
 INSERT INTO leverandoer VALUES(1, 'Wawelka');
 INSERT INTO leverandoer VALUES(2, 'Knoor');
 INSERT INTO leverandoer VALUES(3, 'Veaubais');
@@ -192,9 +191,16 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
     DROP VIEW IF exists v_raavare_batches;
     DROP VIEW IF exists	v_recepter;
     DROP VIEW IF exists v_recepter_ver2;
+
+-- ***************
+-- ***  VIEWS  ***
+-- ***************
+-- Viser alle recept komponenter med tilhørende råvarenavn.
+Delimiter //
+CREATE OR REPLACE VIEW v_recept_komponenter AS
+select * from raavare t1 NATURAL JOIN receptkomponent t2
+// Delimiter;    
     
-    
--- Veiws
 
 Delimiter //
 create view viewProduktBatch as 	
@@ -276,7 +282,7 @@ VIEW `v_recepter_ver2` AS
         JOIN `recept` ON ((`receptkomponent`.`recept_id` = `recept`.`recept_id`)))
     ORDER BY `recept`.`recept_id`
 // Delimiter ;
-
+/*
 Delimiter //
 CREATE 
     ALGORITHM = UNDEFINED 
@@ -292,11 +298,12 @@ VIEW `v_view_users` AS
         `operatoer`
     ORDER BY `operatoer`.`opr_id`
 // Delimiter ;
-
+*/
 -- Dropping Stored procedure
 
 DROP Procedure if  exists createProduktBatchKomponent;
 DROP Procedure if  exists updateRaavareBatch;
+DROP Procedure if  exists fm_update_raavarebatch;
 DROP Procedure if  exists fm_create_productbatch;
 DROP Procedure if  exists fm_update_productbatch;
 DROP Procedure if  exists fm_create_raavarebatch;
