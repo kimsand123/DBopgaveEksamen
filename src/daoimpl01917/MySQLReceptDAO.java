@@ -1,7 +1,6 @@
 package daoimpl01917;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DAO.DALException;
+import connector01917.Connector;
 import daointerfaces01917.ReceptDAO;
+import dto01917.RaavareDTO;
 import dto01917.ReceptDTO;
 import dto01917.ReceptKompDTO;
 import dto01917.ReceptKompDTOtest;
@@ -21,12 +22,11 @@ public class MySQLReceptDAO implements ReceptDAO {
 	public List<ReceptKompDTOtest> visOpskrift(String opskriftNavn) throws DALException {
 		Connection db = null;
 		Statement st = null;
-		boolean found = false; // username found or not.
 		List<ReceptKompDTOtest> list = new ArrayList<ReceptKompDTOtest>();
 
 		try {
-			db = getConnection();
-			st = getStatement(db);
+			db = Connector.getConnection();
+			st = Connector.getStatement(db);
 
 			String query = "CALL sp_show_recept_ver2(?)";
 
@@ -56,10 +56,10 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 		ArrayList<ReceptKompDTO> components = new ArrayList<ReceptKompDTO>(0);
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>(0);
-		Connection con = getConnection();
+		Connection con = Connector.getConnection();
 
 		try {
-			Statement st = getStatement(con);
+			Statement st = Connector.getStatement(con);
 
 			// add recept komponenter to list
 			ResultSet rs = st.executeQuery("SELECT * FROM v_recept_komponenter;");
@@ -132,39 +132,37 @@ public class MySQLReceptDAO implements ReceptDAO {
 	}
 
 	public void updateRecept(ReceptDTO recept) throws DALException {
-		
-		ArrayList<ReceptKompDTO> components = new ArrayList<ReceptKompDTO>(0);
-		List<ReceptDTO> list = new ArrayList<ReceptDTO>(0);
-		Connection con = getConnection();
+
+		Connection con = Connector.getConnection();
 
 		try {
-			
 			// turn off auto. trans.
-			con.setAutoCommit(false);				
-			
-			PreparedStatement deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");	
-			PreparedStatement upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");	
+			con.setAutoCommit(false);
+
+			PreparedStatement deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");
+			PreparedStatement upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");
 			PreparedStatement upReceptKompStatement = con.prepareStatement("CALL sp_addKompToRecept(?, ?, ?, ?);");
-			
+
 			// delete all existing comps
 			deletecomps.setInt(1, recept.getReceptId());
 			deletecomps.executeUpdate();
-			
+
 			// update recept
 			upReceptStatement.setInt(1, recept.getReceptId());
-			upReceptStatement.setString(2, recept.getReceptNavn());			
-			upReceptStatement.executeUpdate();			
-			
+			upReceptStatement.setString(2, recept.getReceptNavn());
+			upReceptStatement.executeUpdate();
+
+			// add recept komponents
 			for (ReceptKompDTO comp : recept.getComponents()) {
 				upReceptKompStatement.setInt(1, recept.getReceptId());
 				upReceptKompStatement.setInt(2, comp.getRaavareId());
 				upReceptKompStatement.setDouble(3, comp.getNomNetto());
-				upReceptKompStatement.setDouble(4, comp.getTolerance());				
-				//upReceptKompStatement.executeUpdate();
+				upReceptKompStatement.setDouble(4, comp.getTolerance());
+				upReceptKompStatement.executeUpdate();
 			}
-			
+
 			con.commit();
-			
+
 			upReceptStatement.close();
 			con.close();
 
@@ -173,22 +171,34 @@ public class MySQLReceptDAO implements ReceptDAO {
 		}
 	}
 
-	private Connection getConnection() throws DALException {
+	public List<RaavareDTO> getRaavareList() {
 
+		ArrayList<RaavareDTO> list = new ArrayList<RaavareDTO>(0);
+
+		Connection con;
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			con = Connector.getConnection();
 
-			return DriverManager.getConnection(
-					"jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2?allowMultiQueries=true", "nybaad_dk",
-					"rgkd49cz");
-		} catch (Exception e) {
-			throw new DALException(e);
+			PreparedStatement stm = con.prepareStatement("select * from v_raavare;");
+
+			ResultSet rs = stm.executeQuery();
+
+			while (rs.next()) {
+				list.add(createRaavareDTO(rs));
+			}
+
+		} catch (DALException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
+		return list;
 	}
 
-	private Statement getStatement(Connection db) throws SQLException {
-		return db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+	private RaavareDTO createRaavareDTO(ResultSet rs) throws SQLException {
+		return new RaavareDTO(rs.getInt("raavare_id"), rs.getString("raavare_navn"), "");
 	}
 
 	public ReceptDTO getRecept(int receptId) throws DALException {

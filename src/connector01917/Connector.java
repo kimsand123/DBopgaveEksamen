@@ -36,6 +36,24 @@ public class Connector
 		return (Connection) DriverManager.getConnection(url, username, password);
 	}
 	
+	public static Connection getConnection() throws DALException
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+
+			return DriverManager.getConnection(
+					"jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2?allowMultiQueries=true", "nybaad_dk",
+					"rgkd49cz");
+		} catch (Exception e) {
+			throw new DALException(e);
+		}
+	}
+	
+	public static Statement getStatement(Connection db) throws SQLException {
+		return db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+	}
+	
+	
 	private static Connection conn;
 	private static Statement stm;
 	

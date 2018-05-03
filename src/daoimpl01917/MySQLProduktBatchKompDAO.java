@@ -22,7 +22,7 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 		try {
 			
 			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
-			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "CALL sp_get_produktbatchkomp (?,?)";
 
@@ -39,7 +39,7 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 			
 			
 			rs.close();
-			st.close();
+			tmp.close();
 			db.close();
 			return pbk;
 		} catch (Exception e) {
@@ -60,13 +60,13 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 
 	public void createProduktBatchKomp(ProduktBatchKompDTO produktbatchkomponent) throws DALException {
 		Connection db = null;
-		Statement st = null;
-		boolean found = false; // username found or not.
+//		Statement st = null;
+//		boolean found = false; // username found or not.
 		
 		try {
 			
 			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
-			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+//			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "CALL sp_create_productbatchkomponent (?,?,?,?)";
 
@@ -80,7 +80,7 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 			
 			System.out.println("ProduktBatchKomp oprettet");// TODO Auto-generated method stub
 			
-			st.close();
+			tmp.close();
 			db.close();
 		} catch (Exception e) {
 			throw new DALException(e);
