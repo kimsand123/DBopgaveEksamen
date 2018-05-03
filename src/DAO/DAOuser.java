@@ -2,10 +2,9 @@ package DAO;
 
 import connector01917.Connector;
 import connector01917.Constant;
-import dto01917.OperatoerDTO;
+import dto01917.UserDTO;
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
-
 import java.sql.*;
 
 
@@ -29,7 +28,7 @@ public class DAOuser {
 	
 	
 	
-	public void createUser( UsaerDTO userDTO) {
+	public void createUser( UserDTO userDTO) {
 		
 						
 			 
