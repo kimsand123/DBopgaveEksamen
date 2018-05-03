@@ -32,7 +32,7 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 		
 			ResultSet rs = tmp.executeQuery();
 			if(rs.next()){
-				pbk = new ProduktBatchKompDTO(rs.getInt(1), rs.getInt(2), rs.getDouble(3), rs.getDouble(4), rs.getInt(5));
+				pbk = new ProduktBatchKompDTO(rs.getInt("pb_id"), rs.getInt("rb_id"), rs.getDouble("netto"), rs.getInt("opr_id"));
 				}
 			
 		
@@ -68,14 +68,13 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
 			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
-			String query = "CALL sp_create_productbatchkomponent (?,?,?,?,?)";
+			String query = "CALL sp_create_productbatchkomponent (?,?,?,?)";
 
 			PreparedStatement tmp = db.prepareStatement(query);
 			tmp.setInt(1, produktbatchkomponent.getPbId()); // produktbatchID
 			tmp.setInt(2, produktbatchkomponent.getRbId());
-			tmp.setDouble(3, produktbatchkomponent.getTara());
-			tmp.setDouble(4, produktbatchkomponent.getNetto());
-			tmp.setInt(5, produktbatchkomponent.getOprId());
+			tmp.setDouble(3, produktbatchkomponent.getNetto());
+			tmp.setInt(4, produktbatchkomponent.getOprId());
 
 			tmp.executeUpdate();
 			
