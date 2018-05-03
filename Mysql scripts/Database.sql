@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 /* must be dropped in this order to avoid constraint violations */
+DROP TABLE IF EXISTS keytable;
 DROP TABLE IF EXISTS produktbatchkomponent;
 DROP TABLE IF EXISTS produktbatch;
 DROP TABLE IF EXISTS operatoer;
@@ -11,6 +12,7 @@ DROP TABLE IF EXISTS raavare;
 
 SET FOREIGN_KEY_CHECKS=1;
 
+CREATE TABLE keytable(leverandoerid VARCHAR(100), operatoerid VARCHAR(100), produktbatchid VARCHAR(100), produktbatchkomponentid VARCHAR(100), raavareid VARCHAR(100), raavarebatchid VARCHAR(100), receptid VARCHAR(100), receptkomponentid VARCHAR(100)) ENGINE=innoDB;
 CREATE TABLE operatoer(opr_id INT PRIMARY KEY, opr_fornavn TEXT, opr_efternavn TEXT,  ini TEXT, cpr TEXT, password TEXT) ENGINE=innoDB;
  
 CREATE TABLE raavare(raavare_id INT PRIMARY KEY, raavare_navn TEXT, leverandoer TEXT) ENGINE=innoDB;
