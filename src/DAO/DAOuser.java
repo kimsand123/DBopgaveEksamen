@@ -38,11 +38,11 @@ public class DAOuser {
 	CallableStatement castm = null;
 	try {
 		castm = conn.prepareCall("{call sp_create_medarbejder(?,?,?,?,?)}");
-		castm.setInt(1, userDTO.getOprId());
-		castm.setString(2, userDTO.getOprNavn());
-		castm.setString(3,userDTO.getIni());
-		castm.setString(4, userDTO.getCpr());
-		castm.setString(5,userDTO.getPassword());
+		castm.setInt(1, userDTO.getUser_id());
+		castm.setString(2, userDTO.getUser_navn());
+		castm.setString(3,userDTO.getUser_ini());
+		castm.setString(4, userDTO.getUser_cpr());
+		castm.setString(5,userDTO.getUser_password());
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
