@@ -9,6 +9,7 @@ import connector01917.Constant;
 import dto01917.ProductNProviderDTO;
 import dto01917.RaavareBatchDTO;
 
+import java.sql.CallableStatement;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +19,6 @@ import java.sql.SQLException;
 import DAOinterfaces.*;
 
 public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
-	ResultSet rset = null;
-	PreparedStatement cs=null;
 	RaavareBatchDTO dto;
 	Connection conn = createConn();
 	
@@ -35,7 +34,6 @@ public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
         }
 
         return conn;
-
     }
 	
 	public DAOCreateRaavareBatch() {}
@@ -44,18 +42,29 @@ public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
 	PreparedStatement rs=null;
 
 	public void  CreateRaavare(RaavareBatchDTO raavaredto){
-
 	
+		Connection conn = createConn();
+		
+		CallableStatement st = null;
 		try {
-			rs = conn.prepareStatement("Execute( fm_create_raavarebatch("+raavaredto.getRbId()+", "
-					+raavaredto.getRaavareId()+", "+raavaredto.getMaengde() +"))");
-			rs.execute();
-		} catch (SQLException e) {	System.out.println("Error concerning DB, cannot execute statement");
+			st = conn.prepareCall("{call fm_create_RaavareBatch(?,?,?)}");
+			st.setInt(1, raavaredto.getRbId());
+			st.setInt(2, raavaredto.getRaavareId());
+			st.setDouble(3, raavaredto.getMaengde());
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	
+			
+		try {
+			st.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+			
+		}
+		
 }
 	
 	
@@ -66,6 +75,6 @@ public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
 	
 	
 	
-}
+
 	
 
