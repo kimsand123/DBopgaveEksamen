@@ -191,7 +191,6 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 	DROP VIEW IF exists viewProduktBatch;
 	DROP VIEW IF exists v_product_provider_list;
     DROP VIEW IF exists v_raavare_batches;
-    DROP VIEW IF exists	v_recepter;
     DROP VIEW IF exists v_recepter_ver2;
 
 -- ***************
@@ -305,7 +304,6 @@ DROP Procedure if  exists fm_update_productbatch;
 DROP Procedure if  exists fm_create_raavarebatch;
 DROP Procedure if  exists sp_create_medarbejder;
 DROP Procedure if  exists sp_delete_medarbejder;
-DROP Procedure if  exists sp_show_recept;
 DROP Procedure if  exists sp_show_recept_ver2;
 -- Stored procedure 
 
