@@ -2,10 +2,9 @@ package DAO;
 
 import connector01917.Connector;
 import connector01917.Constant;
-import dto01917.OperatoerDTO;
-import dto01917.ProductNProviderDTO;
+import dto01917.UserDTO;
 import DAOinterfaces.*;
-
+import DTO.ProductNProviderDTO;
 import java.sql.*;
 
 
@@ -29,7 +28,7 @@ public class DAOuser {
 	
 	
 	
-	public void createUser( OperatoerDTO userDTO) {
+	public void createUser( UserDTO userDTO) {
 		
 						
 			 
@@ -39,11 +38,11 @@ public class DAOuser {
 	CallableStatement castm = null;
 	try {
 		castm = conn.prepareCall("{call sp_create_medarbejder(?,?,?,?,?)}");
-		castm.setInt(1, userDTO.getOprId());
-		castm.setString(2, userDTO.getOprNavn());
-		castm.setString(3,userDTO.getIni());
-		castm.setString(4, userDTO.getCpr());
-		castm.setString(5,userDTO.getPassword());
+		castm.setInt(1, userDTO.getUser_id());
+		castm.setString(2, userDTO.getUser_navn());
+		castm.setString(3,userDTO.getUser_ini());
+		castm.setString(4, userDTO.getUser_cpr());
+		castm.setString(5,userDTO.getUser_password());
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -57,6 +56,18 @@ public class DAOuser {
 	}	
 		
 	}
+	
+	
+	
+	
+	public void updateUser(UserDTO userDTO) {
+	
+		
+		
+		
+	}
+	
+	
 	
 	public void deleteUser(int userId)
 	{

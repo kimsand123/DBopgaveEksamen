@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import DAO.DAOProductNProvider;
-import dto01917.ProductNProviderDTO;
+import DTO.ProductNProviderDTO;
 
 public class TestProductNProvider {
 
