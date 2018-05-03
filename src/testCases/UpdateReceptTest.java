@@ -8,6 +8,10 @@ import tools.KeyValue;
 
 public class UpdateReceptTest {
 
+	public static void main(String[] args) {
+		new UpdateReceptTest().Run(1);
+	}
+	
 	public void Run(int receptId) {
 		ReceptController recCtrl = new ReceptController();
 		ReceptDTO recept = recCtrl.getRecept(receptId);
