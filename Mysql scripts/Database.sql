@@ -195,6 +195,12 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 -- ***************
 -- ***  VIEWS  ***
 -- ***************
+-- Viser alle raavare
+Delimiter // 
+CREATE OR REPLACE VIEW v_raavare AS
+SELECT * FROM raavare;
+// Delimiter;     
+
 -- Viser alle recept komponenter med tilhørende råvarenavn.
 Delimiter //
 CREATE OR REPLACE VIEW v_recept_komponenter AS
@@ -392,3 +398,34 @@ FROM v_recepter_ver2
 WHERE recept=recept_navn_input;
 END
 // Delimiter ;
+
+/* Tilføjer recept komp til recept */
+DROP Procedure if  exists sp_addKompToRecept;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_addKompToRecept(IN pRecept_id INT, IN pRaavare_id INT, IN pNom_netto double, IN pTolerance double)
+
+BEGIN	
+    INSERT INTO receptkomponent(recept_id, raavare_id, nom_netto, tolerance) VALUES (pRecept_id, pRaavare_id, pNom_netto, pTolerance);
+END
+// DELIMITER ;
+
+/* Sletter alle recept komponenter fra en recept */
+DROP Procedure if  exists sp_delete_receptKomponenter;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_delete_receptKomponenter(IN pRecept_id INT)
+	BEGIN
+		/* delete all recept components */
+	    DELETE FROM receptkomponent WHERE recept_id = pRecept_id;
+	END
+// DELIMITER ;
+
+/* Opdater en recept */
+DROP Procedure if  exists sp_updateRecept;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_updateRecept(IN pRecept_id INT, IN pRecept_navn TEXT)
+	BEGIN
+		UPDATE recept SET recept_navn = pRecept_navn WHERE recept_id=pRecept_id;     
+	END
+// DELIMITER ;
+
+
