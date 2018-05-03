@@ -1,6 +1,6 @@
 package DAOinterfaces;
 
-import dto01917.ProductNProviderDTO;
+import DTO.ProductNProviderDTO;
 
 public interface IDAOProductNProvider {
 	

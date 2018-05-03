@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import connector01917.Connector;
 import connector01917.Constant;
-import dto01917.ProductNProviderDTO;
 import DAOinterfaces.*;
+import DTO.ProductNProviderDTO;
 
 
 public class DAOProductNProvider implements IDAOProductNProvider {
