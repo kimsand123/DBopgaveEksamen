@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import DAO.DALException;
@@ -133,8 +132,31 @@ public class MySQLReceptDAO implements ReceptDAO {
 	}
 
 	public void updateRecept(ReceptDTO recept) throws DALException {
-		// TODO Auto-generated method stub
+		
+		ArrayList<ReceptKompDTO> components = new ArrayList<ReceptKompDTO>(0);
+		List<ReceptDTO> list = new ArrayList<ReceptDTO>(0);
+		Connection con = getConnection();
 
+		try {
+			
+			// turn off auto. trans.
+			con.setAutoCommit(false);
+				
+			PreparedStatement statement = con.prepareStatement("CALL sp_updateRecept(?, ?);");
+			
+			statement.setInt(1, recept.getReceptId());
+			statement.setString(2, recept.getReceptNavn());
+			
+			statement.executeUpdate();
+			
+			con.commit();
+			
+			statement.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Connection getConnection() throws DALException {

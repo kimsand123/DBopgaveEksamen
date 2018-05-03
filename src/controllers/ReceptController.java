@@ -18,6 +18,14 @@ public class ReceptController {
 		dao = new MySQLReceptDAO();
 	}
 
+	public void updateRecept(ReceptDTO recept) {
+		try {
+			dao.updateRecept(recept);
+		} catch (DALException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public List<ReceptDTO> getRecepter() {
 
 		try {
