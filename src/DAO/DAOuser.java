@@ -3,9 +3,8 @@ package DAO;
 import connector01917.Connector;
 import connector01917.Constant;
 import dto01917.OperatoerDTO;
-import dto01917.ProductNProviderDTO;
 import DAOinterfaces.*;
-
+import dto01917.UserDTO;
 import java.sql.*;
 
 
@@ -16,6 +15,8 @@ public class DAOuser {
 	{
 		
 		Connection conn = null;
+		
+		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
 		} catch (SQLException e) {
@@ -29,7 +30,7 @@ public class DAOuser {
 	
 	
 	
-	public void createUser( OperatoerDTO userDTO) {
+	public void createUser( UsaerDTO userDTO) {
 		
 						
 			 
@@ -57,6 +58,15 @@ public class DAOuser {
 	}	
 		
 	}
+	
+	
+	
+	
+	public void updateUser(UserDTO userDTO) {
+		
+	}
+	
+	
 	
 	public void deleteUser(int userId)
 	{
