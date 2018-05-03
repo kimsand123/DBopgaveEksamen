@@ -3,8 +3,8 @@ package DAO;
 import connector01917.Connector;
 import connector01917.Constant;
 import dto01917.OperatoerDTO;
-import dto01917.ProductNProviderDTO;
 import DAOinterfaces.*;
+import DTO.ProductNProviderDTO;
 
 import java.sql.*;
 
