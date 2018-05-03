@@ -14,9 +14,9 @@ public class DAOuser {
 	private Connection createConn()
 	{
 		
-		Connection conn = null;
+		Connection conn = 
 		
-		
+			
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
 		} catch (SQLException e) {
