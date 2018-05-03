@@ -4,7 +4,8 @@ import connector01917.Connector;
 import connector01917.Constant;
 import dto01917.OperatoerDTO;
 import DAOinterfaces.*;
-import dto01917.UserDTO;
+import DTO.ProductNProviderDTO;
+
 import java.sql.*;
 
 
@@ -14,9 +15,7 @@ public class DAOuser {
 	private Connection createConn()
 	{
 		
-		Connection conn = 
-		
-			
+		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
 		} catch (SQLException e) {

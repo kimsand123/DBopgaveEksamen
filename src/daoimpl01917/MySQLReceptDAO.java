@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import DAO.DALException;
@@ -133,8 +132,45 @@ public class MySQLReceptDAO implements ReceptDAO {
 	}
 
 	public void updateRecept(ReceptDTO recept) throws DALException {
-		// TODO Auto-generated method stub
+		
+		ArrayList<ReceptKompDTO> components = new ArrayList<ReceptKompDTO>(0);
+		List<ReceptDTO> list = new ArrayList<ReceptDTO>(0);
+		Connection con = getConnection();
 
+		try {
+			
+			// turn off auto. trans.
+			con.setAutoCommit(false);				
+			
+			PreparedStatement deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");	
+			PreparedStatement upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");	
+			PreparedStatement upReceptKompStatement = con.prepareStatement("CALL sp_addKompToRecept(?, ?, ?, ?);");
+			
+			// delete all existing comps
+			deletecomps.setInt(1, recept.getReceptId());
+			deletecomps.executeUpdate();
+			
+			// update recept
+			upReceptStatement.setInt(1, recept.getReceptId());
+			upReceptStatement.setString(2, recept.getReceptNavn());			
+			upReceptStatement.executeUpdate();			
+			
+			for (ReceptKompDTO comp : recept.getComponents()) {
+				upReceptKompStatement.setInt(1, recept.getReceptId());
+				upReceptKompStatement.setInt(2, comp.getRaavareId());
+				upReceptKompStatement.setDouble(3, comp.getNomNetto());
+				upReceptKompStatement.setDouble(4, comp.getTolerance());				
+				//upReceptKompStatement.executeUpdate();
+			}
+			
+			con.commit();
+			
+			upReceptStatement.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Connection getConnection() throws DALException {
