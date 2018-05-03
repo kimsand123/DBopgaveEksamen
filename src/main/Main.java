@@ -16,6 +16,9 @@ public class Main {
 		
 		ReceptDTO recept = recCtrl.getRecepter().get(0);
 		recept.setReceptNavn("Boller i karry");		
+		
+		
+		
 		recCtrl.updateRecept(recept);
 		
 		System.out.println();

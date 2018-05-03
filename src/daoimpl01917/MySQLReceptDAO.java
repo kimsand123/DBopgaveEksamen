@@ -140,18 +140,32 @@ public class MySQLReceptDAO implements ReceptDAO {
 		try {
 			
 			// turn off auto. trans.
-			con.setAutoCommit(false);
-				
-			PreparedStatement statement = con.prepareStatement("CALL sp_updateRecept(?, ?);");
+			con.setAutoCommit(false);				
 			
-			statement.setInt(1, recept.getReceptId());
-			statement.setString(2, recept.getReceptNavn());
+			PreparedStatement deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");	
+			PreparedStatement upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");	
+			PreparedStatement upReceptKompStatement = con.prepareStatement("CALL sp_addKompToRecept(?, ?, ?, ?);");
 			
-			statement.executeUpdate();
+			// delete all existing comps
+			deletecomps.setInt(1, recept.getReceptId());
+			deletecomps.executeUpdate();
+			
+			// update recept
+			upReceptStatement.setInt(1, recept.getReceptId());
+			upReceptStatement.setString(2, recept.getReceptNavn());			
+			upReceptStatement.executeUpdate();			
+			
+			for (ReceptKompDTO comp : recept.getComponents()) {
+				upReceptKompStatement.setInt(1, recept.getReceptId());
+				upReceptKompStatement.setInt(2, comp.getRaavareId());
+				upReceptKompStatement.setDouble(3, comp.getNomNetto());
+				upReceptKompStatement.setDouble(4, comp.getTolerance());				
+				//upReceptKompStatement.executeUpdate();
+			}
 			
 			con.commit();
 			
-			statement.close();
+			upReceptStatement.close();
 			con.close();
 
 		} catch (SQLException e) {
