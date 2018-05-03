@@ -41,7 +41,7 @@ public class DAOCreateRaavareBatch {
 			st.setInt(1, raavaredto.getRbId());
 			st.setInt(2, raavaredto.getRaavareId());
 			st.setDouble(3, raavaredto.getMaengde());
-			st.setString(4, raavaredto.getLeverandoer());
+			st.setInt(4, raavaredto.getLeverandoer());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
