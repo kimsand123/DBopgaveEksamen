@@ -1,24 +1,14 @@
 package DAO;
 
 import java.sql.SQLException;
-
 import com.mysql.jdbc.Connection;
-
-import connector01917.Connector;
-import connector01917.Constant;
-import dto01917.ProductNProviderDTO;
 import dto01917.RaavareBatchDTO;
-
 import java.sql.CallableStatement;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
-import DAOinterfaces.*;
-
-public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
+public class DAOCreateRaavareBatch {
 	RaavareBatchDTO dto;
 	Connection conn = createConn();
 	
@@ -47,10 +37,11 @@ public class DAOCreateRaavareBatch implements IDAOFm_create_raavarebatch {
 		
 		CallableStatement st = null;
 		try {
-			st = conn.prepareCall("{call fm_create_RaavareBatch(?,?,?)}");
+			st = conn.prepareCall("{call fm_create_RaavareBatch(?,?,?,?)}");
 			st.setInt(1, raavaredto.getRbId());
 			st.setInt(2, raavaredto.getRaavareId());
 			st.setDouble(3, raavaredto.getMaengde());
+			st.setString(4, raavaredto.getLeverandoer());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
