@@ -12,13 +12,17 @@ import dto01917.ReceptDTO;
  */
 public class ReceptController {
 
-	public List<ReceptDTO> getRecepter() {
+	MySQLReceptDAO dao = null;
 
-		MySQLReceptDAO dao = new MySQLReceptDAO();
+	public ReceptController() {
+		dao = new MySQLReceptDAO();
+	}
+
+	public List<ReceptDTO> getRecepter() {
 
 		try {
 			return dao.getReceptList();
-		} catch (DALException e) {			
+		} catch (DALException e) {
 			e.printStackTrace();
 		}
 
