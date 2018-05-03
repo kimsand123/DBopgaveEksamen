@@ -27,8 +27,8 @@ public class MySQLReceptDAO implements ReceptDAO {
 		List<ReceptKompDTOtest> list = new ArrayList<ReceptKompDTOtest>();
 
 		try {
-			db = getConnection();
-			st = getStatement(db);
+			db = Connector.getConnection();
+			st = Connector.getStatement(db);
 
 			String query = "CALL sp_show_recept_ver2(?)";
 
@@ -58,10 +58,10 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 		ArrayList<ReceptKompDTO> components = new ArrayList<ReceptKompDTO>(0);
 		List<ReceptDTO> list = new ArrayList<ReceptDTO>(0);
-		Connection con = getConnection();
+		Connection con = Connector.getConnection();
 
 		try {
-			Statement st = getStatement(con);
+			Statement st = Connector.getStatement(con);
 
 			// add recept komponenter to list
 			ResultSet rs = st.executeQuery("SELECT * FROM v_recept_komponenter;");
@@ -135,7 +135,7 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 	public void updateRecept(ReceptDTO recept) throws DALException {
 
-		Connection con = getConnection();
+		Connection con = Connector.getConnection();
 
 		try {
 			// turn off auto. trans.
@@ -172,36 +172,13 @@ public class MySQLReceptDAO implements ReceptDAO {
 		}
 	}
 
-	private Connection getConnection() throws DALException {
-
-		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-
-			return DriverManager.getConnection(
-					"jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2?allowMultiQueries=true", "nybaad_dk",
-					"rgkd49cz");
-		} catch (Exception e) {
-			throw new DALException(e);
-		}
-
-	}
-
-	private Statement getStatement(Connection db) throws SQLException {
-		return db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-	}
-
-	public ReceptDTO getRecept(int receptId) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public List<RaavareDTO> getRaavareList() {
 
 		ArrayList<RaavareDTO> list = new ArrayList<RaavareDTO>(0);
 
 		Connection con;
 		try {
-			con = getConnection();
+			con = Connector.getConnection();
 
 			PreparedStatement stm = con.prepareStatement("select * from v_raavare;");
 
@@ -223,6 +200,11 @@ public class MySQLReceptDAO implements ReceptDAO {
 
 	private RaavareDTO createRaavareDTO(ResultSet rs) throws SQLException {
 		return new RaavareDTO(rs.getInt("raavare_id"), rs.getString("raavare_navn"), "");
+	}
+
+	public ReceptDTO getRecept(int receptId) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
