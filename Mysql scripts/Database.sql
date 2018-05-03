@@ -191,7 +191,6 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 	DROP VIEW IF exists viewProduktBatch;
 	DROP VIEW IF exists v_product_provider_list;
     DROP VIEW IF exists v_raavare_batches;
-    DROP VIEW IF exists	v_recepter;
     DROP VIEW IF exists v_recepter_ver2;
 
 -- ***************
@@ -234,10 +233,9 @@ VIEW `v_product_provider_list` AS
         `leverandoer`.`navn` AS `navn`,
         `raavarebatch`.`maengde` AS `maengde`
     FROM
-        (((`raavare`
+        ((`raavare`
         JOIN `raavarebatch` ON ((`raavare`.`raavare_id` = `raavarebatch`.`raavare_id`)))
-        JOIN `raavareleverandoer` ON ((`raavare`.`raavare_id` = `raavareleverandoer`.`raavare_id`)))
-        JOIN `leverandoer` ON ((`raavareleverandoer`.`lev_id` = `leverandoer`.`lev_id`)))
+        JOIN `leverandoer` ON ((`raavarebatch`.`lev_id` = `leverandoer`.`lev_id`)))
     WHERE
         (`raavarebatch`.`maengde` >= 100)
     ORDER BY `raavare`.`raavare_navn`
@@ -305,8 +303,8 @@ DROP Procedure if  exists fm_create_productbatch;
 DROP Procedure if  exists fm_update_productbatch;
 DROP Procedure if  exists fm_create_raavarebatch;
 DROP Procedure if  exists sp_create_medarbejder;
+DROP Procedure if  exists sp_update_medarbejder;
 DROP Procedure if  exists sp_delete_medarbejder;
-DROP Procedure if  exists sp_show_recept;
 DROP Procedure if  exists sp_show_recept_ver2;
 -- Stored procedure 
 
@@ -378,9 +376,101 @@ begin
   // Delimiter ;
 
 Delimiter //
- CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_create_medarbejder`(IN id_input INT(2), navn_input VARCHAR(20), ini_input VARCHAR(4), cpr_input VARCHAR(11), pass_input VARCHAR(20))
-BEGIN
-INSERT INTO operatoer (opr_id,opr_navn,ini,cpr,password) VALUES (id_input,navn_input,ini_input,cpr_input,pass_input);
+CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_create_medarbejder`(
+IN id_input INT(2),
+IN fornavn_input VARCHAR(20),
+in efternavn_input varchar(20),
+IN ini_input VARCHAR(4),
+IN cpr_input VARCHAR(11),
+IN pass_input VARCHAR(20),
+IN admin_input INT(1),
+IN foreman_input INT(1),
+IN pharmacist_input INT(1),
+IN masterchef_input INT(1))
+Begin
+INSERT INTO operatoer (opr_id,opr_fornavn, opr_efternavn,ini,cpr,password) VALUES (id_input,fornavn_input,efternavn_input,ini_input,cpr_input,pass_input);
+IF NOT admin_input IS NULL OR admin_input != '' then
+insert into operatoer_roller (opr_id,rolle_navn) 
+value(id_input, 'Administrator');
+END IF;
+IF NOT foreman_input IS NULL OR foreman_input != '' THEN
+insert into operatoer_roller (opr_id,rolle_navn) 
+value(id_input, 'Foreman');
+END IF;
+IF NOT masterchef_input IS NULL OR masterchef_input  != '' THEN
+insert into operatoer_roller (opr_id,rolle_navn) 
+value(id_input, 'Master_Chef');
+END IF;
+IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
+insert into operatoer_roller (opr_id,rolle_navn) 
+value(id_input, 'Operatoer');
+END IF;
+
+END
+  // Delimiter ;
+  
+Delimiter //
+ CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_update_medarbejder`(
+IN id_input INT(2),
+IN fornavn_input VARCHAR(20),
+IN efternavn_input varchar(20),
+IN ini_input VARCHAR(4),
+IN cpr_input VARCHAR(11),
+IN pass_input VARCHAR(20),
+IN admin_input INT(1),
+IN foreman_input INT(1),
+IN pharmacist_input INT(1),
+IN masterchef_input INT(1))
+Begin
+UPDATE operatoer SET 
+opr_id = id_input, 
+opr_fornavn = fornavn_input, 
+opr_efternavn = efternavn_input,
+ini = ini_input,
+cpr = cpr_input,
+password = pass_input 
+WHERE opr_id = id_input;
+
+# UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
+
+IF NOT admin_input IS NULL OR admin_input != '' THEN
+	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
+		UPDATE operatoer_roller SET rolle_navn = 'Administrator' WHERE opr_id = id_input;
+   ELSE
+		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Administrator');
+	END IF;
+END IF;
+
+# UPDATE FOREMAN ROLE IF EXISTS OR INSERT IF NOT
+
+IF NOT foreman_input IS NULL OR foreman_input != '' THEN
+	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
+		UPDATE operatoer_roller SET rolle_navn = 'Foreman' WHERE opr_id = id_input;
+   ELSE
+		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Foreman');
+	END IF;
+END IF;
+
+# UPDATE MASTER CHEF ROLE IF EXISTS OR INSERT IF NOT
+
+IF NOT masterchef_input IS NULL OR masterchef_input != '' THEN
+	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
+		UPDATE operatoer_roller SET rolle_navn = 'Master_Chef' WHERE opr_id = id_input;
+   ELSE
+		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Master_Chef');
+	END IF;
+END IF;
+
+# UPDATE OPERATOER ROLE IF EXISTS OR INSERT IF NOT
+
+IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
+	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
+		UPDATE operatoer_roller SET rolle_navn = 'Operatoer' WHERE opr_id = id_input;
+   ELSE
+		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Operatoer');
+	END IF;
+END IF;
+
 END
   // Delimiter ;
   
