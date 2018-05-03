@@ -1,6 +1,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 /* must be dropped in this order to avoid constraint violations */
+DROP TABLE IF EXISTS keytable;
 DROP TABLE IF EXISTS produktbatchkomponent;
 DROP TABLE IF EXISTS produktbatch;
 DROP TABLE IF EXISTS operatoer;
@@ -11,6 +12,7 @@ DROP TABLE IF EXISTS raavare;
 
 SET FOREIGN_KEY_CHECKS=1;
 
+CREATE TABLE keytable(leverandoerid VARCHAR(100), operatoerid VARCHAR(100), produktbatchid VARCHAR(100), produktbatchkomponentid VARCHAR(100), raavareid VARCHAR(100), raavarebatchid VARCHAR(100), receptid VARCHAR(100), receptkomponentid VARCHAR(100)) ENGINE=innoDB;
 CREATE TABLE operatoer(opr_id INT PRIMARY KEY, opr_fornavn TEXT, opr_efternavn TEXT,  ini TEXT, cpr TEXT, password TEXT) ENGINE=innoDB;
  
 CREATE TABLE raavare(raavare_id INT PRIMARY KEY, raavare_navn TEXT, leverandoer TEXT) ENGINE=innoDB;
@@ -195,6 +197,12 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 -- ***************
 -- ***  VIEWS  ***
 -- ***************
+-- Viser alle raavare
+Delimiter // 
+CREATE OR REPLACE VIEW v_raavare AS
+SELECT * FROM raavare;
+// Delimiter;     
+
 -- Viser alle recept komponenter med tilhørende råvarenavn.
 Delimiter //
 CREATE OR REPLACE VIEW v_recept_komponenter AS
@@ -392,3 +400,34 @@ FROM v_recepter_ver2
 WHERE recept=recept_navn_input;
 END
 // Delimiter ;
+
+/* Tilføjer recept komp til recept */
+DROP Procedure if  exists sp_addKompToRecept;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_addKompToRecept(IN pRecept_id INT, IN pRaavare_id INT, IN pNom_netto double, IN pTolerance double)
+
+BEGIN	
+    INSERT INTO receptkomponent(recept_id, raavare_id, nom_netto, tolerance) VALUES (pRecept_id, pRaavare_id, pNom_netto, pTolerance);
+END
+// DELIMITER ;
+
+/* Sletter alle recept komponenter fra en recept */
+DROP Procedure if  exists sp_delete_receptKomponenter;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_delete_receptKomponenter(IN pRecept_id INT)
+	BEGIN
+		/* delete all recept components */
+	    DELETE FROM receptkomponent WHERE recept_id = pRecept_id;
+	END
+// DELIMITER ;
+
+/* Opdater en recept */
+DROP Procedure if  exists sp_updateRecept;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_updateRecept(IN pRecept_id INT, IN pRecept_navn TEXT)
+	BEGIN
+		UPDATE recept SET recept_navn = pRecept_navn WHERE recept_id=pRecept_id;     
+	END
+// DELIMITER ;
+
+

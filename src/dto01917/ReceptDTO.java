@@ -27,9 +27,7 @@ public class ReceptDTO {
 	}
 
 	public void addComponent(ReceptKompDTO comp) {
-		if (components.containsKey(comp.getRaavareId()))
-			components.get(comp.getReceptId()).nomNetto += comp.nomNetto;
-		else
+
 			components.put(comp.getRaavareId(), comp);
 	}
 	
@@ -56,5 +54,9 @@ public class ReceptDTO {
 
 	public String toString() {
 		return receptId + "\t" + receptNavn;
+	}
+
+	public void clearComponents() {
+		components.clear();		
 	}
 }
