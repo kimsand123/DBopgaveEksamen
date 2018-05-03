@@ -1,4 +1,4 @@
-package UseCaseDemoTilEksamen;
+package testCases;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
