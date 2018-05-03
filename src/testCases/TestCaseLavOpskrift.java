@@ -73,16 +73,16 @@ public class TestCaseLavOpskrift {
 		 */
 		int oprId = 3;
 		int rbId = getRbId(komponent.getRaavareId()); //hackmethod
-		double tara = 0.5;
+//		double tara = 0.5;
 		double netto = komponent.getNomNetto();
-		ProduktBatchKompDTO pbKomp = new ProduktBatchKompDTO(pbDAO.getProduktBatchId(), rbId, tara, netto, oprId);
+		ProduktBatchKompDTO pbKomp = new ProduktBatchKompDTO(pbDAO.getProduktBatchId(), rbId, netto, oprId);
 		try {
 			pbkDAO.createProduktBatchKomp(pbKomp);
 			System.out.println("produktbatchkomp for "+komponent.getRaavareNavn()+" er oprettet");
 			System.out.println();
 			ProduktBatchKompDTO pbk = pbkDAO.getProduktBatchKomp(pbKomp.getPbId(), rbId);
 			System.out.println("Henter oprettet produktbatchkomponent fra database:");
-			System.out.println("pbId: "+pbk.getPbId()+" rbId: "+pbk.getRbId()+" tara: "+pbk.getTara()+" netto: "+pbk.getNetto()+" oprId: "+pbk.getOprId());
+			System.out.println("pbId: "+pbk.getPbId()+" rbId: "+pbk.getRbId()+" netto: "+pbk.getNetto()+" oprId: "+pbk.getOprId());
 			System.out.println();
 			System.out.println();
 		} catch (DALException e) {
@@ -96,11 +96,11 @@ public class TestCaseLavOpskrift {
 		
 		switch (raavareId) {
 		case 1:
-			return 31;
+			return 1;
 		case 2:
-			return 32;
+			return 3;
 		case 5:
-			return 33;
+			return 5;
 		default:
 			return 0;
 		}
