@@ -27,13 +27,13 @@ public class MySQLProduktBatchDAO implements ProduktBatchDAO {
 
 	public void createProduktBatch(ProduktBatchDTO produktbatch)  throws DALException {
 		Connection db = null;
-		Statement st = null;
+		//Statement st = null;
 		boolean found = false; // username found or not.
 		
 		try {
 			
 			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
-			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			//st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "CALL fm_create_productbatch (?,?,?)";
 
@@ -46,7 +46,8 @@ public class MySQLProduktBatchDAO implements ProduktBatchDAO {
 			
 			System.out.println("ProduktBatch oprettet");// TODO Auto-generated method stub
 			
-			st.close();
+		//	st.close();
+			tmp.close();
 			db.close();
 		} catch (Exception e) {
 			throw new DALException(e);
