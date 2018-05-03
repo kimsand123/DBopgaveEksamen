@@ -257,23 +257,6 @@ CREATE
     ALGORITHM = UNDEFINED 
     DEFINER = `nybaad_dk`@`%` 
     SQL SECURITY DEFINER
-VIEW `v_recepter` AS
-    SELECT DISTINCT
-        `recept`.`recept_navn` AS `recept`,
-        `raavare`.`raavare_navn` AS `raavare`,
-        `receptkomponent`.`nom_netto` AS `maengde`
-    FROM
-        ((`raavare`
-        JOIN `receptkomponent` ON ((`raavare`.`raavare_id` = `receptkomponent`.`raavare_id`)))
-        JOIN `recept` ON ((`receptkomponent`.`recept_id` = `recept`.`recept_id`)))
-    ORDER BY `recept`.`recept_id`
-// Delimiter ;
-
-Delimiter //
-CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `nybaad_dk`@`%` 
-    SQL SECURITY DEFINER
 VIEW `v_recepter_ver2` AS
     SELECT DISTINCT
         `recept`.`recept_navn` AS `recept`,
@@ -400,15 +383,6 @@ DELETE FROM operatoer
 WHERE (opr_id=id_input);
 END 
   // Delimiter ;
-
-Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_show_recept`(IN recept_navn_input VARCHAR(20))
-BEGIN
-SELECT raavare, maengde
-FROM v_recepter
-WHERE recept=recept_navn_input;
-END
-// Delimiter ;
 
 Delimiter //
 CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_show_recept_ver2`(IN recept_navn_input VARCHAR(20))
