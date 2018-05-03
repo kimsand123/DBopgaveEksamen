@@ -1,7 +1,6 @@
 package daoimpl01917;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,6 @@ public class MySQLReceptDAO implements ReceptDAO {
 	public List<ReceptKompDTOtest> visOpskrift(String opskriftNavn) throws DALException {
 		Connection db = null;
 		Statement st = null;
-		boolean found = false; // username found or not.
 		List<ReceptKompDTOtest> list = new ArrayList<ReceptKompDTOtest>();
 
 		try {
@@ -154,6 +152,7 @@ public class MySQLReceptDAO implements ReceptDAO {
 			upReceptStatement.setString(2, recept.getReceptNavn());
 			upReceptStatement.executeUpdate();
 
+			// add recept komponents
 			for (ReceptKompDTO comp : recept.getComponents()) {
 				upReceptKompStatement.setInt(1, recept.getReceptId());
 				upReceptKompStatement.setInt(2, comp.getRaavareId());
