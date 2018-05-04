@@ -1,6 +1,6 @@
 package DAOinterfaces;
 
-import dto01917.UserDTO;
+import DTO.UserDTO;
 
 public interface IDAOuser {
 

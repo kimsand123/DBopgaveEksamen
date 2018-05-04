@@ -2,35 +2,32 @@ package DAO;
 
 import connector01917.Connector;
 import connector01917.Constant;
-import dto01917.UserDTO;
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
+import DTO.UserDTO;
+
 import java.sql.*;
 
 
 
 
 public class DAOuser {
-	private Connection createConn()
-	{
-
-		Connection conn = null;
+	Connection conn;
+	
+	
+	public DAOuser() {
 		try {
-			conn = DriverManager.getConnection("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
-		} catch (SQLException e) {
+			conn = Connector.getConnection();
+		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		return conn;
-
 	}
-
 
 
 	public void createUser( UserDTO userDTO) {
 
-		Connection conn = createConn();
+		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_create_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
@@ -73,11 +70,11 @@ public class DAOuser {
 
 
 
-	public void updateUser(UserDTO userDTO) {
+	public void  updateUser(UserDTO userDTO) {
 
 
 
-		Connection conn = createConn();
+		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_update_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
@@ -122,7 +119,7 @@ public class DAOuser {
 
 	public void deleteUser(int userId)
 	{
-		Connection conn = createConn();
+		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_delete_medarbejder(?)");
