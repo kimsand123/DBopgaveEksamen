@@ -7,16 +7,13 @@ import DTO.ProductNProviderDTO;
 import DTO.UserDTO;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
-
-
-
 
 public class DAOuser {
 	Connection conn;
-	
-	
-	public DAOuser() {	
+
+	public DAOuser() {
 		try {
 			conn = Connector.getConnection();
 		} catch (DALException e) {
@@ -25,10 +22,8 @@ public class DAOuser {
 		}
 	}
 
+	public void createUser(UserDTO userDTO) {
 
-	public void createUser( UserDTO userDTO) {
-
-		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_create_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
@@ -39,18 +34,17 @@ public class DAOuser {
 			castm.setString(5, userDTO.getUser_cpr());
 			castm.setString(6, userDTO.getUser_password());
 
-			for(int x = 0; x < userDTO.getRoles().size(); x++)
-			{
-				String hell =	userDTO.getRoles().get(x);
-				switch(hell) {
+			for (int x = 0; x < userDTO.getRoles().size(); x++) {
+				String hell = userDTO.getRoles().get(x);
+				switch (hell) {
 
 				case "Administrator":
 					castm.setInt(7, 1);
 				case "Foreman":
 					castm.setInt(8, 1);
-				case"Master_Chef":
+				case "Master_Chef":
 					castm.setInt(9, 1);
-				case"Operatoer":
+				case "Operatoer":
 					castm.setInt(10, 1);
 				}
 			}
@@ -64,18 +58,12 @@ public class DAOuser {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 
 	}
 
+	public void updateUser(UserDTO userDTO) {
 
-
-
-	public void  updateUser(UserDTO userDTO) {
-
-
-
-		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_update_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
@@ -86,18 +74,17 @@ public class DAOuser {
 			castm.setString(5, userDTO.getUser_cpr());
 			castm.setString(6, userDTO.getUser_password());
 
-			for(int x = 0; x < userDTO.getRoles().size(); x++)
-			{
-				String hell =	userDTO.getRoles().get(x);
-				switch(hell) {
+			for (int x = 0; x < userDTO.getRoles().size(); x++) {
+				String hell = userDTO.getRoles().get(x);
+				switch (hell) {
 
 				case "Administrator":
 					castm.setInt(7, 1);
 				case "Foreman":
 					castm.setInt(8, 1);
-				case"Master_Chef":
+				case "Master_Chef":
 					castm.setInt(9, 1);
-				case"Operatoer":
+				case "Operatoer":
 					castm.setInt(10, 1);
 				}
 			}
@@ -111,57 +98,79 @@ public class DAOuser {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-
+		}
 
 	}
-	public List getUserList()
-	{	ResultSet rs = null;
+
+	public ArrayList<UserDTO> getUserList() {
+		ResultSet rs = null;
 		Statement st = null;
 		UserDTO User = new UserDTO();
+		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
 		try {
 			st = conn.createStatement();
-			
-			st.executeQuery("Select * From v_User_list");
-			rs=st.getResultSet();
-			
-			while(rs.next() == true)
-			{
-				
+			int Highest = 0;
+			st.executeQuery("Select * From v_view_users");
+			rs = st.getResultSet();
+
+			while (rs.next() == true) {
+				if (rs.getInt(1) >= Highest) {
+					Highest = rs.getInt(1);
+				}
+
 				User.setUser_id(rs.getInt(1));
-				User.setUser_fornavn(rs.getString(2));;
-				User.setUser_efternavn(rs.getString(3));;
+
+				User.setUser_fornavn(rs.getString(2));
+				
+				User.setUser_efternavn(rs.getString(3));
+				
 				User.setUser_ini(rs.getString(4));
+				
 				User.setUser_cpr(rs.getString(5));
+				
 				User.setUser_password(rs.getString(6));
 				
+				userList.add(User);
 			}
-			
-			
-			
-			
-			
+
+			st.executeQuery("Select * From v_view_roles");
+			rs = st.getResultSet();
+			ArrayList<String> Roles = new ArrayList<String>();
+
+			for (int x = 0; x <= Highest; x++) {
+
+				while (rs.next() == true) {
+
+					if (rs.getInt(1) ==userList.get(x).getUser_id()) {
+						Roles.add(rs.getString(2));
+					}
+
+				}
+
+				for(int i = 0; i <= userList.size(); i++)
+				{
+					if(userList.get(i).getUser_id() == x)
+					{
+						userList.get(i).setRoles(Roles);
+					}
+					
+				}
 				
 				
+				rs.beforeFirst();
+			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-			
-			
-				
-				
-				
-		
-		return null;
-		
+
+		return userList;
+
 	}
 
+	public void deleteUser(int userId) {
 
-	public void deleteUser(int userId)
-	{
-		
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_delete_medarbejder(?)");
@@ -177,19 +186,8 @@ public class DAOuser {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
-
-
-
+		}
 
 	}
-
-
-
-
-
-
-
-
 
 }
