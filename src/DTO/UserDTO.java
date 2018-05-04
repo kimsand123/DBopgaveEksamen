@@ -36,6 +36,13 @@ public UserDTO(int User_id, String User_fornavn,String User_efternavn, String Us
 
 	
 
+	public UserDTO() {
+		
+}
+
+
+
+
 	public int getUser_id() {
 		return User_id;
 	}

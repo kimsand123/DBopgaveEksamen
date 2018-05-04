@@ -7,6 +7,7 @@ import DTO.ProductNProviderDTO;
 import DTO.UserDTO;
 
 import java.sql.*;
+import java.util.List;
 
 
 
@@ -15,7 +16,7 @@ public class DAOuser {
 	Connection conn;
 	
 	
-	public DAOuser() {
+	public DAOuser() {	
 		try {
 			conn = Connector.getConnection();
 		} catch (DALException e) {
@@ -114,7 +115,48 @@ public class DAOuser {
 
 
 	}
-
+	public List getUserList()
+	{	ResultSet rs = null;
+		Statement st = null;
+		UserDTO User = new UserDTO();
+		try {
+			st = conn.createStatement();
+			
+			st.executeQuery("Select * From v_User_list");
+			rs=st.getResultSet();
+			
+			while(rs.next() == true)
+			{
+				
+				User.setUser_id(rs.getInt(1));
+				User.setUser_fornavn(rs.getString(2));;
+				User.setUser_efternavn(rs.getString(3));;
+				User.setUser_ini(rs.getString(4));
+				User.setUser_cpr(rs.getString(5));
+				User.setUser_password(rs.getString(6));
+				
+			}
+			
+			
+			
+			
+			
+				
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			
+			
+				
+				
+				
+		
+		return null;
+		
+	}
 
 
 	public void deleteUser(int userId)
