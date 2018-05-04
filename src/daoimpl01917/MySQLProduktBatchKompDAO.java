@@ -15,8 +15,8 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 
 	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws DALException {
 		Connection db = null;
-		Statement st = null;
-		boolean found = false; // username found or not.
+//		Statement st = null;
+//		boolean found = false; // username found or not.
 		ProduktBatchKompDTO pbk = null;
 		
 		try {
@@ -78,7 +78,7 @@ public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 
 			tmp.executeUpdate();
 			
-			System.out.println("ProduktBatchKomp oprettet");// TODO Auto-generated method stub
+//			System.out.println("ProduktBatchKomp oprettet");// TODO Auto-generated method stub
 			
 			tmp.close();
 			db.close();

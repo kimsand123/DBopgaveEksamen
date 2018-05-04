@@ -1,4 +1,5 @@
 package testCases;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ public class MainTestCaseLavOpskrift {
 		 * Aktivt input: {recept_navn}
 		 */
 		String receptNavn = "margherita";
-		
 		/*
 		 * Der oprettes en produktbatch
 		 * Aktivt input: {}
@@ -27,10 +27,20 @@ public class MainTestCaseLavOpskrift {
 		 * Hvis det lykkes at oprette en produktbatch skal der afvejes og oprettes de produktbatchkomponenter der skal bruges til produktionen
 		 * Aktivt input {data ved afvejning (rb_id, tara, netto)}
 		 */
+		
 		if(testCase1.opretProduktBatch(opskrift.get(0).getReceptId())) {
-			for(ReceptKompDTOtest komponent: opskrift) {
-				testCase1.opretProduktBatchKomp(komponent);
+			/*
+			 * Hvis produktBatch er oprettet, find og vis produktbatch.
+			 */
+			if(testCase1.visProduktBatch(testCase1.getLatestKey())) {
+				/*
+				 * Hvis produktBatch kunne vises, opret produktbatchkomponenter.
+				 */
+				for(ReceptKompDTOtest komponent: opskrift) {
+					testCase1.opretProduktBatchKomp(komponent);
+				}
 			}
+			
 		}
 		else {
 			System.out.println("Terminating lifesupport");
