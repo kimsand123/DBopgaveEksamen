@@ -433,7 +433,7 @@ WHERE opr_id = id_input;
 
 # UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT admin_input IS NULL OR admin_input != '' THEN
+IF admin_input != '0' THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Administrator' WHERE opr_id = id_input;
    ELSE
@@ -443,7 +443,7 @@ END IF;
 
 # UPDATE FOREMAN ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT foreman_input IS NULL OR foreman_input != '' THEN
+IF foreman_input != '0' THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Foreman' WHERE opr_id = id_input;
    ELSE
@@ -453,7 +453,7 @@ END IF;
 
 # UPDATE MASTER CHEF ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT masterchef_input IS NULL OR masterchef_input != '' THEN
+IF masterchef_input != '0' THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Master_Chef' WHERE opr_id = id_input;
    ELSE
@@ -463,7 +463,7 @@ END IF;
 
 # UPDATE OPERATOER ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
+IF pharmacist_input != '0' THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Operatoer' WHERE opr_id = id_input;
    ELSE
