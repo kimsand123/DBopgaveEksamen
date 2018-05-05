@@ -35,7 +35,7 @@ public class ReceptController {
 		}
 	}
 
-	public RaavareDTO getRaavare(int id) {
+	public RaavareDTO getRaavare(int id) throws DALException {
 
 		for (RaavareDTO item : this.getRaavareList()) {
 
@@ -47,7 +47,7 @@ public class ReceptController {
 
 	}
 
-	public List<RaavareDTO> getRaavareList() {
+	public List<RaavareDTO> getRaavareList() throws DALException {
 
 		return dao.getRaavareList();
 	}

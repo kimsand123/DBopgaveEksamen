@@ -134,14 +134,17 @@ public class MySQLReceptDAO implements IDAORecept {
 	public void updateRecept(ReceptDTO recept) throws DALException {
 
 		Connection con = Connector.getConnection();
+		PreparedStatement deletecomps = null;
+		PreparedStatement upReceptStatement = null;
+		PreparedStatement upReceptKompStatement = null;
 
 		try {
 			// turn off auto. trans.
 			con.setAutoCommit(false);
 
-			PreparedStatement deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");
-			PreparedStatement upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");
-			PreparedStatement upReceptKompStatement = con.prepareStatement("CALL sp_addKompToRecept(?, ?, ?, ?);");
+			deletecomps = con.prepareStatement("CALL sp_delete_receptKomponenter(?);");
+			upReceptStatement = con.prepareStatement("CALL sp_updateRecept(?, ?);");
+			upReceptKompStatement = con.prepareStatement("CALL sp_addKompToRecept(?, ?, ?, ?);");
 
 			// delete all existing comps
 			deletecomps.setInt(1, recept.getReceptId());
@@ -163,35 +166,71 @@ public class MySQLReceptDAO implements IDAORecept {
 
 			con.commit();
 
-			upReceptStatement.close();
-			con.close();
-
 		} catch (SQLException e) {
-			e.printStackTrace();
+
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+				throw new DALException(e1.getMessage());
+			}
+
+			throw new DALException(e.getMessage());
+		} finally {
+
+			try {
+				if (upReceptKompStatement != null)
+					upReceptKompStatement.close();
+
+				if (upReceptStatement != null)
+					upReceptStatement.close();
+
+				if (deletecomps != null)
+					deletecomps.close();
+
+				if (con != null)
+					con.close();
+
+			} catch (SQLException e) {
+				throw new DALException(e.getMessage());
+			}
 		}
 	}
 
-	public List<RaavareDTO> getRaavareList() {
+	public List<RaavareDTO> getRaavareList() throws DALException {
 
 		ArrayList<RaavareDTO> list = new ArrayList<RaavareDTO>(0);
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement stm = null;
 
-		Connection con;
 		try {
 			con = Connector.getConnection();
 
-			PreparedStatement stm = con.prepareStatement("select * from v_raavare;");
+			stm = con.prepareStatement("select * from v_raavare;");
 
-			ResultSet rs = stm.executeQuery();
+			rs = stm.executeQuery();
 
 			while (rs.next()) {
 				list.add(createRaavareDTO(rs));
 			}
 
-		} catch (DALException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			throw new DALException(e.getMessage());
+		} finally {
+
+			try {
+				if (rs != null)
+					rs.close();
+
+				if (con != null)
+					con.close();
+
+				if (stm != null)
+					stm.close();
+				
+			} catch (SQLException e) {
+				throw new DALException(e.getMessage());
+			}
 		}
 
 		return list;

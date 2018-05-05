@@ -8,7 +8,7 @@ import DTO.ProductNProviderDTO;
 
 public class TestProductNProvider {
 
-	public void TestProductNProvider() {
+	public void Run() {
 		DAOProductNProvider dao = new DAOProductNProvider();
 		ProductNProviderDTO dto;
 		String varenavn;
