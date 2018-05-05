@@ -231,12 +231,15 @@ VIEW `v_product_provider_list` AS
     SELECT DISTINCT
         `raavare`.`raavare_navn` AS `raavare_navn`,
         `leverandoer`.`navn` AS `navn`,
-        `raavarebatch`.`maengde` AS `maengde`
+        SUM(`raavarebatch`.`maengde`) AS `maengde`
     FROM
         ((`raavare`
         JOIN `raavarebatch` ON ((`raavare`.`raavare_id` = `raavarebatch`.`raavare_id`)))
         JOIN `leverandoer` ON ((`raavarebatch`.`lev_id` = `leverandoer`.`lev_id`)))
-    ORDER BY `raavare`.`raavare_navn`
+    WHERE
+        (`raavarebatch`.`maengde` >= 100)
+    GROUP BY `raavarebatch`.`lev_id` , `raavare`.`raavare_id`
+    ORDER BY `raavare`.`raavare_navn
 // Delimiter ;
  
 Delimiter //
