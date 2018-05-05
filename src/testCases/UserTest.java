@@ -7,48 +7,59 @@ import DTO.UserDTO;
 
 public class UserTest {
 
-	public static void main(String[] args) {
+	public static void Run() {
+		
 		ArrayList<String> Roles = new ArrayList<String>();
-		UserDTO DTO = new UserDTO(10, "Bjaren", "Ris","BR", "210494-2000", "KHah1241", Roles );
+		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
+		UserDTO DTO = new UserDTO(10, "Bjaren", "Ris", "BR", "210494-2000", "KHah1241", Roles);
 		DAOuser DAO = new DAOuser();
-
-	DAO.createUser(DTO);
-	//Printer liste af bruger ud.
-	System.out.println("ID: \n"+ DTO.getUser_id()+ "Fornavn: \n "+DTO.getUser_fornavn()+ "Efternavn: \n"+DTO.getUser_efternavn()+"initialer: \n"+DTO.getUser_ini()+"CPR: \n"+DTO.getUser_cpr()+"Password: \n"+DTO.getUser_password());
-
-	for(int x = 0; x < DTO.getRoles().size(); x++)
-	{
 	
-		System.out.println(DTO.getRoles().get(x)+"\n");	
-
+		// Printer liste af bruger ud.
+		userList = DAO.getUserList();
+		printlist(userList);
+		System.out.println("Press Enter to Create a new User");
+		try{System.in.read();}
+		catch(Exception e){}
+		// laver en n bruger og printer listen
+		DAO.createUser(DTO);
+		userList = DAO.getUserList();
+		printlist(userList);
+		System.out.println("Press Enter to change something about the new user");
+		try{System.in.read();}
+		catch(Exception e){}
+		// opdatere nogle celler og printer listn ud
+		DTO.setUser_id(15);
+		DTO.setUser_efternavn("Sørensen");
+		DAO.updateUser(DTO);
+		// Printer vores bruger ud.
+		userList = DAO.getUserList();
+		printlist(userList);
+		System.out.println("Press Enter to make the user Disapear");
+		try{System.in.read();}
+		catch(Exception e){}
+		DAO.deleteUser(15);
+		// Printer listen af bruger ud.
+		userList = DAO.getUserList();
+		printlist(userList);
+		System.out.println("Press Enter to end user demonstartion");
+		try{System.in.read();}
+		catch(Exception e){}
 	}
-
-	DTO.setUser_id(15);
-	DTO.setUser_ini("Sørensen");
-	
-	
-	DAO.updateUser(DTO);
-	//Printer vores bruger ud.
-	System.out.println("ID: \n"+ DTO.getUser_id()+ "Fornavn: \n "+DTO.getUser_fornavn()+ "Efternavn: \n"+DTO.getUser_efternavn()+"initialer: \n"+DTO.getUser_ini()+"CPR: \n"+DTO.getUser_cpr()+"Password: \n"+DTO.getUser_password());
-
-	for(int x = 0; x < DTO.getRoles().size(); x++)
+	public static void printlist(ArrayList<UserDTO> listDTO)
 	{
-	
-		System.out.println(DTO.getRoles().get(x)+"\n");	
+		for (UserDTO DTO1 : listDTO) {
+			System.out.println("\n");
+			System.out.println("ID: " + DTO1.getUser_id() + "Fornavn:  " + DTO1.getUser_fornavn() + "Efternavn: "
+					+ DTO1.getUser_efternavn() + "initialer: " + DTO1.getUser_ini() + "CPR: " + DTO1.getUser_cpr()
+					+ "Password: " + DTO1.getUser_password());
 
+			for (int x = 0; x < DTO1.getRoles().size(); x++) {
+
+				System.out.println(DTO1.getRoles().get(x) + ", ");
+
+			}
+		}
+		
 	}
-
-	
-	DAO.deleteUser(15);
-	//Printer listen af bruger ud.
-	System.out.println("ID: \n"+ DTO.getUser_id()+ "Fornavn: \n "+DTO.getUser_fornavn()+ "Efternavn: \n"+DTO.getUser_efternavn()+"initialer: \n"+DTO.getUser_ini()+"CPR: \n"+DTO.getUser_cpr()+"Password: \n"+DTO.getUser_password());
-
-	for(int x = 0; x < DTO.getRoles().size(); x++)
-	{
-	
-		System.out.println(DTO.getRoles().get(x)+"\n");	
-
-	}
-}
 
 }
