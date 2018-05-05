@@ -417,8 +417,9 @@ IN cpr_input VARCHAR(11),
 IN pass_input VARCHAR(20),
 IN admin_input INT(1),
 IN foreman_input INT(1),
-IN pharmacist_input INT(1),
-IN masterchef_input INT(1))
+IN masterchef_input INT(1),
+IN pharmacist_input INT(1)
+)
 Begin
 UPDATE operatoer SET 
 opr_id = id_input, 
@@ -426,47 +427,67 @@ opr_fornavn = fornavn_input,
 opr_efternavn = efternavn_input,
 ini = ini_input,
 cpr = cpr_input,
-password = pass_input
+password = pass_input 
 WHERE opr_id = id_input;
 
 # UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
 
 IF admin_input != 0 THEN
-	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
-		UPDATE operatoer_roller SET rolle_navn = 'Administrator' WHERE opr_id = id_input;
-   ELSE
-		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Administrator');
-	END IF;
+	IF NOT EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input AND rolle_navn ='Administrator' ) THEN
+    
+	
+	INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Administrator');
+	
+    END IF;
+	else
+
+	 DELETE FROM  operatoer_roller  WHERE rolle_navn ='Administrator' AND  opr_id = id_input;
+
+
+    
 END IF;
 
 # UPDATE FOREMAN ROLE IF EXISTS OR INSERT IF NOT
 
 IF foreman_input != 0 THEN
-	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
-		UPDATE operatoer_roller SET rolle_navn = 'Foreman' WHERE opr_id = id_input;
-   ELSE
-		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Foreman');
+	IF NOT EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input  And  rolle_navn = 'Foreman') THEN
+		
+        INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Foreman');
+        
 	END IF;
+    else
+
+	 DELETE FROM  operatoer_roller  WHERE rolle_navn = 'Foreman' AND  opr_id = id_input;
+
+
+    
 END IF;
 
 # UPDATE MASTER CHEF ROLE IF EXISTS OR INSERT IF NOT
 
 IF masterchef_input != 0 THEN
-	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
-		UPDATE operatoer_roller SET rolle_navn = 'Master_Chef' WHERE opr_id = id_input;
-   ELSE
+	IF NOT EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input AND rolle_navn = 'Master_Chef') THEN
+    
 		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Master_Chef');
-	END IF;
+	
+    END IF;
+else
+
+	 DELETE FROM  operatoer_roller  WHERE rolle_navn = 'Master_Chef' AND  opr_id = id_input;
+
+
 END IF;
 
 # UPDATE OPERATOER ROLE IF EXISTS OR INSERT IF NOT
 
 IF pharmacist_input != 0 THEN
-	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
-		UPDATE operatoer_roller SET rolle_navn = 'Operatoer' WHERE opr_id = id_input;
-   ELSE
+	IF NOT EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input AND rolle_navn = 'Operatoer') THEN
 		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Operatoer');
+        
 	END IF;
+   
+   else
+    DELETE FROM  operatoer_roller  WHERE rolle_navn = 'Operatoer' AND  opr_id = id_input;
 END IF;
 
 END
