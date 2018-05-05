@@ -1,14 +1,9 @@
 package DAO;
 
-import connector01917.Connector;
-import connector01917.Constant;
-import DAOinterfaces.*;
-import DTO.ProductNProviderDTO;
 import DTO.UserDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DAOuser {
 	Connection conn;
@@ -17,6 +12,7 @@ public class DAOuser {
 
 		this.conn = conn;
 
+		
 	}
 
 	public void createUser(UserDTO userDTO) {
@@ -30,19 +26,28 @@ public class DAOuser {
 			castm.setString(4, userDTO.getUser_ini());
 			castm.setString(5, userDTO.getUser_cpr());
 			castm.setString(6, userDTO.getUser_password());
-
+			// fills the values with 0 for role not existing
+			castm.setInt(7, 0);
+			castm.setInt(8, 0);
+			castm.setInt(9, 0);
+			castm.setInt(10, 0);
+			
 			for (int x = 0; x < userDTO.getRoles().size(); x++) {
-				String hell = userDTO.getRoles().get(x);
-				switch (hell) {
+
+				switch (userDTO.getRoles().get(x)) {
 
 				case "Administrator":
 					castm.setInt(7, 1);
+					break;
 				case "Foreman":
 					castm.setInt(8, 1);
+					break;
 				case "Master_Chef":
 					castm.setInt(9, 1);
+					break;
 				case "Operatoer":
 					castm.setInt(10, 1);
+					break;
 				}
 			}
 		} catch (SQLException e) {
@@ -70,21 +75,30 @@ public class DAOuser {
 			castm.setString(4, userDTO.getUser_ini());
 			castm.setString(5, userDTO.getUser_cpr());
 			castm.setString(6, userDTO.getUser_password());
-
+			// fills the values with 0 for role not existing
+			castm.setInt(7, 0);
+			castm.setInt(8, 0);
+			castm.setInt(9, 0);
+			castm.setInt(10, 0);
 			for (int x = 0; x < userDTO.getRoles().size(); x++) {
-				String hell = userDTO.getRoles().get(x);
-				switch (hell) {
+
+				switch (userDTO.getRoles().get(x)) {
 
 				case "Administrator":
 					castm.setInt(7, 1);
+					break;
 				case "Foreman":
 					castm.setInt(8, 1);
+					break;
 				case "Master_Chef":
 					castm.setInt(9, 1);
+					break;
 				case "Operatoer":
 					castm.setInt(10, 1);
+					break;
 				}
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -133,7 +147,6 @@ public class DAOuser {
 
 			st.executeQuery("Select * From v_view_roles");
 			rs = st.getResultSet();
-			
 
 			for (UserDTO user : userList) {
 				ArrayList<String> Roles = new ArrayList<String>();

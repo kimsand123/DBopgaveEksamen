@@ -21,8 +21,6 @@ public class UserTest {
 		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
 		Roles.add("Administrator");
 		Roles.add("Foreman");
-		Roles.add("Master_Chef");
-		Roles.add("Operatoer");
 		UserDTO DTO = new UserDTO(10, "Bjaren", "Ris", "BR", "210494-2000", "KHah1241", Roles);
 		 
 		
@@ -35,7 +33,8 @@ public class UserTest {
 		userList = DAO.getUserList();
 		printlist(userList);
 		System.out.println("Press Enter to Create a new User");
-		try{System.in.read();}
+		try{
+			System.in.read();}
 		catch(Exception e){}
 		// laver en n bruger og printer listen
 		DAO.createUser(DTO);
@@ -43,9 +42,11 @@ public class UserTest {
 		
 		userList = DAO.getUserList();
 		printlist(userList);
-	/*	
+
 		System.out.println("Press Enter to change something about the new user");
-		try{System.in.read();}
+		try{
+		
+		System.in.read();}
 		catch(Exception e){}
 		
 		// opdatere nogle celler og printer listen ud
@@ -56,18 +57,22 @@ public class UserTest {
 		// Printer vores bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
-		*/
+		
 		System.out.println("Press Enter to make the user disappear");
-		try{System.in.read();}
+		
+		try{
+			System.in.read();}
 		catch(Exception e){}
 		
+
 		DAO.deleteUser(DTO.getUser_id());
 		
 		// Printer listen af bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
 		System.out.println("Press Enter to end user demonstartion");
-		try{System.in.read();}
+		try {
+			System.in.read();}
 		catch(Exception e){}
 		
 		
@@ -76,19 +81,24 @@ public class UserTest {
 	}
 	public static void printlist(ArrayList<UserDTO> listDTO)
 	{
-		for (UserDTO DTO1 : listDTO) {
-			System.out.println("\n");
-			System.out.println("ID: " + DTO1.getUser_id() +" "+ "Fornavn:  " + DTO1.getUser_fornavn() +" "+ "Efternavn: "
-					+ DTO1.getUser_efternavn() +" "+ "initialer: " + DTO1.getUser_ini() +" "+ "CPR: " + DTO1.getUser_cpr()
-					+" "+ "Password: " + DTO1.getUser_password());
 
-			for (int x = 0; x < DTO1.getRoles().size(); x++) {
-
-				System.out.println(DTO1.getRoles().get(x) + ", ");
-
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.printf("%10s %30s %20s %5s %30s", "User ID", "First Name", "Last Name", "InI", "CPR");
+		System.out.println();
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
+		for(UserDTO DTO1 : listDTO){
+			System.out.format("%10s %30s %20s %5s %30s",
+					DTO1.getUser_id(), DTO1.getUser_fornavn(), DTO1.getUser_efternavn(),DTO1.getUser_ini(), DTO1.getUser_cpr());
+			System.out.println();
+			for(String roles : DTO1.getRoles())
+			{
+				System.out.println(roles);
 			}
+			
+		}
+		System.out.println("--------------------------------------------------------------------------------------------------------------------------------------------");
 		}
 		
 	}
 
-}
+
