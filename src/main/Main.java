@@ -22,9 +22,12 @@ public class Main {
 		//productnproviderlist.TestProductNProvider();
 		//sc.nextLine();
 		//System.out.println("slut");
-		System.out.println("List leverandoerer og produkter med sum pr gruppe. leverandør.vare");
+		System.out.println("List leverandører og produkter med sum pr gruppe. leverandør.vare");
 		sc.nextLine();
 		new TestProductNProvider().Run();
+		System.out.println();
+		System.out.println();
+		System.out.println("Tryk Enter for at slutte");
 		sc.nextLine();
 		System.out.println("slutPrut");
 	}
