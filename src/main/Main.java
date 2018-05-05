@@ -13,15 +13,15 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		
-		//UserTest.Run();
+		UserTest.Run();
 		//sc.nextLine();
 		//new UpdateReceptTest().Run(1);
 		//sc.nextline();
 		//MainTestCaseLavOpskrift.Run();
 		//sc.nextLine();
-		productnproviderlist.TestProductNProvider();
-		sc.nextLine();
-		System.out.println("slut");
+		//productnproviderlist.TestProductNProvider();
+		//sc.nextLine();
+		//System.out.println("slut");
 	}
 	
 	

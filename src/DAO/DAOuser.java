@@ -51,7 +51,7 @@ public class DAOuser {
 		}
 
 		try {
-			castm.executeQuery();
+			castm.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class DAOuser {
 		}
 
 		try {
-			castm.executeQuery();
+			castm.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -163,7 +163,7 @@ public class DAOuser {
 
 		CallableStatement castm = null;
 		try {
-			castm = conn.prepareCall("{call sp_delete_medarbejder(?)");
+			castm = conn.prepareCall("{call sp_delete_medarbejder(?)}");
 			
 			castm.setInt(1, userId );
 
@@ -173,7 +173,7 @@ public class DAOuser {
 		}
 
 		try {
-			castm.executeQuery();
+			castm.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
