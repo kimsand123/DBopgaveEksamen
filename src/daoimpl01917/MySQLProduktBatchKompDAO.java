@@ -7,9 +7,9 @@ import java.sql.Statement;
 import java.util.List;
 
 import DAO.DALException;
+import DTO.ProduktBatchKompDTO;
 import connector01917.Connector;
 import daointerfaces01917.ProduktBatchKompDAO;
-import dto01917.ProduktBatchKompDTO;
 
 public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
 

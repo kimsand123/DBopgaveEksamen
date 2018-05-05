@@ -3,9 +3,9 @@ package testCases;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTO.ProduktBatchDTO;
+import DTO.ReceptKompDTOtest;
 import daoimpl01917.MySQLReceptDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.ReceptKompDTOtest;
 import testCases.TestCaseLavOpskrift;
 public class MainTestCaseLavOpskrift {
 

@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DAO.DALException;
+import DTO.ReceptKompDTOtest;
 import connector01917.Connector;
 import daointerfaces01917.ReceptDAO;
 import dto01917.RaavareDTO;
 import dto01917.ReceptDTO;
 import dto01917.ReceptKompDTO;
-import dto01917.ReceptKompDTOtest;
 
 public class MySQLReceptDAO implements ReceptDAO {
 
