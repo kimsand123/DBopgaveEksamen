@@ -13,7 +13,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		
 		
-		//UserTest.Run();
+		UserTest.Run();
 		//sc.nextLine();
 		//new UpdateReceptTest().Run(1);
 		//sc.nextline();

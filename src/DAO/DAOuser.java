@@ -14,16 +14,16 @@ public class DAOuser {
 	Connection conn;
 
 	public DAOuser(Connection conn) {
-	
-	this.conn = conn;
-	
+
+		this.conn = conn;
+
 	}
 
 	public void createUser(UserDTO userDTO) {
 
 		CallableStatement castm = null;
 		try {
-			castm = conn.prepareCall("{call sp_create_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
+			castm = conn.prepareCall("call sp_create_medarbejder(?,?,?,?,?,?,?,?,?,?)");
 			castm.setInt(1, userDTO.getUser_id());
 			castm.setString(2, userDTO.getUser_fornavn());
 			castm.setString(3, userDTO.getUser_efternavn());
@@ -63,7 +63,7 @@ public class DAOuser {
 
 		CallableStatement castm = null;
 		try {
-			castm = conn.prepareCall("{call sp_update_medarbejder(?,?,?,?,?,?,?,?,?,?)}");
+			castm = conn.prepareCall("call sp_update_medarbejder(?,?,?,?,?,?,?,?,?,?)");
 			castm.setInt(1, userDTO.getUser_id());
 			castm.setString(2, userDTO.getUser_fornavn());
 			castm.setString(3, userDTO.getUser_efternavn());
@@ -133,10 +133,10 @@ public class DAOuser {
 
 			st.executeQuery("Select * From v_view_roles");
 			rs = st.getResultSet();
-			ArrayList<String> Roles = new ArrayList<String>();
+			
 
 			for (UserDTO user : userList) {
-
+				ArrayList<String> Roles = new ArrayList<String>();
 				while (rs.next() == true) {
 
 					if (rs.getInt(1) == user.getUser_id()) {
@@ -163,9 +163,9 @@ public class DAOuser {
 
 		CallableStatement castm = null;
 		try {
-			castm = conn.prepareCall("{call sp_delete_medarbejder(?)}");
-			
-			castm.setInt(1, userId );
+			castm = conn.prepareCall("call sp_delete_medarbejder(?)");
+
+			castm.setInt(1, userId);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -180,8 +180,8 @@ public class DAOuser {
 		}
 
 	}
-	public void closeUserDAO()
-	{
+
+	public void closeUserDAO() {
 		try {
 			conn.close();
 		} catch (SQLException e) {

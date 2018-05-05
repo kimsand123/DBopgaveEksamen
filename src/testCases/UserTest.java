@@ -43,16 +43,16 @@ public class UserTest {
 		
 		userList = DAO.getUserList();
 		printlist(userList);
-		/*
+		
 		System.out.println("Press Enter to change something about the new user");
 		try{System.in.read();}
 		catch(Exception e){}
 		
 		// opdatere nogle celler og printer listen ud
-		DTO.setUser_id(15);
-		DTO.setUser_efternavn("Sørensen");
+		DTO.setUser_fornavn("Lasse");
+		DTO.setUser_efternavn("Soerensen");
 		DAO.updateUser(DTO);
-		*/
+		
 		// Printer vores bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
@@ -61,15 +61,15 @@ public class UserTest {
 		try{System.in.read();}
 		catch(Exception e){}
 		
-		DAO.deleteUser(10);
-		/*
+		DAO.deleteUser(DTO.getUser_id());
+		
 		// Printer listen af bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
 		System.out.println("Press Enter to end user demonstartion");
 		try{System.in.read();}
 		catch(Exception e){}
-		*/
+		
 		
 		DAO.closeUserDAO();
 		
