@@ -11,13 +11,41 @@ import DAO.DALException;
 import connector01917.Connector;
 import daointerfaces01917.ProduktBatchDAO;
 import dto01917.ProduktBatchDTO;
+import dto01917.ProduktBatchKompDTO;
 
 public class MySQLProduktBatchDAO implements ProduktBatchDAO {
 
 	
 	public ProduktBatchDTO getProduktBatch(int pbId) throws DALException {
-		// TODO Auto-generated method stub
-		return null;
+		Connection db = null;
+//		Statement st = null;
+//		boolean found = false; // username found or not.
+		ProduktBatchDTO pb = null;
+		
+		try {
+			
+			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
+//			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			
+			String query = "SELECT * FROM produktbatch WHERE pb_id=?;";
+
+			PreparedStatement tmp = db.prepareStatement(query);
+			tmp.setInt(1, pbId); // produktbatchID
+		
+		
+			ResultSet rs = tmp.executeQuery();
+			if(rs.next()){
+				pb = new ProduktBatchDTO(rs.getInt("pb_id"), rs.getInt("status"), rs.getInt("recept_id"));
+				}
+			
+			rs.close();
+			tmp.close();
+			db.close();
+			return pb;
+		} catch (Exception e) {
+			throw new DALException(e);
+		}
+		
 	}
 
 	public List<ProduktBatchDTO> getProduktBatchList() throws DALException {
@@ -44,7 +72,7 @@ public class MySQLProduktBatchDAO implements ProduktBatchDAO {
 
 			tmp.executeUpdate();
 			
-			System.out.println("ProduktBatch oprettet");// TODO Auto-generated method stub
+//			System.out.println("ProduktBatch oprettet");// TODO Auto-generated method stub
 			
 		//	st.close();
 			tmp.close();
