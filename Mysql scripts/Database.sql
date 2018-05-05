@@ -480,7 +480,7 @@ END IF;
 
 # UPDATE OPERATOER ROLE IF EXISTS OR INSERT IF NOT
 
-IF pharmacist_input != 0 THEN
+IF operatoer_input != 0 THEN
 	IF NOT EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input AND rolle_navn = 'Operatoer') THEN
 		INSERT INTO operatoer_roller (opr_id,rolle_navn) VALUES (id_input, 'Operatoer');
         
