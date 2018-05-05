@@ -2,7 +2,9 @@ package DAO;
 
 import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
-import dto01917.RaavareBatchDTO;
+
+import DTO.RaavareBatchDTO;
+
 import java.sql.CallableStatement;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
