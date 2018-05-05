@@ -9,9 +9,9 @@ import com.mysql.jdbc.Connection;
 
 import DAO.DALException;
 import DAO.DAOCreateRaavareBatch;
+import DTO.RaavareBatchDTO;
 import connector01917.Connector;
 import connector01917.Constant;
-import dto01917.RaavareBatchDTO;
 
 public class createRaavareBatchTest {
 
