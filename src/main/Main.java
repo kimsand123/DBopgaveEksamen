@@ -15,13 +15,13 @@ public class Main {
 		
 		//UserTest.Run();
 		//sc.nextLine();
-		//new UpdateReceptTest().Run(1);
-		//sc.nextline();
+		new UpdateReceptTest().Run(1);
+		sc.nextLine();
 		//MainTestCaseLavOpskrift.Run();
 		//sc.nextLine();
-		productnproviderlist.TestProductNProvider();
+		new TestProductNProvider().Run();
 		sc.nextLine();
-		System.out.println("slut");
+		System.out.println("slutPrut");
 	}
 	
 	
