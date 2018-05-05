@@ -11,6 +11,10 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		
+		System.out.println("Vis users");
+		sc.nextLine();
+		UserTest.Run();
+		sc.nextLine();
 		//UserTest.Run();
 		//sc.nextLine();
 		//new UpdateReceptTest().Run(1);
@@ -24,6 +28,14 @@ public class Main {
 		//sc.nextLine();
 		//new TestProductNProvider().Run();
 		//sc.nextLine();
+		System.out.println("List leverandører og produkter med sum pr gruppe. leverandør.vare");
+		sc.nextLine();
+		new TestProductNProvider().Run();
+		System.out.println();
+		System.out.println();
+		System.out.println("Tryk Enter for at slutte");
+		sc.nextLine();
+		
 		System.out.println("slutPrut");
 	}
 	
