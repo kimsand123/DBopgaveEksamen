@@ -1,4 +1,4 @@
-package tools;
+package tools; 
 
 /* The MIT License (MIT)
  * Copyright (c) 2012 Carl Eriksson
