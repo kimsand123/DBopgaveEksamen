@@ -102,7 +102,6 @@ public class DAOuser {
 	public ArrayList<UserDTO> getUserList() {
 		ResultSet rs = null;
 		Statement st = null;
-
 		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
 		try {
 			st = conn.createStatement();

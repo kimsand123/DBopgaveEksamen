@@ -8,7 +8,7 @@ import DTO.ProductNProviderDTO;
 
 public class TestProductNProvider {
 
-	public TestProductNProvider() {
+	public void TestProductNProvider() {
 		DAOProductNProvider dao = new DAOProductNProvider();
 		ProductNProviderDTO dto;
 		String varenavn;
@@ -21,12 +21,12 @@ public class TestProductNProvider {
 		ResultSet rs = dto.getResultSet();
 		
 		System.out.println("Vare                 Leverandør                         Mængde");
+		System.out.println("--------------------------------------------------------------");
 		try {
 			while(rs.next()) {
 				varenavn = rs.getString("raavare_navn");
 				leverandoer = rs.getString("navn");
 				maengde = rs.getDouble("maengde");
-				//System.out.println(varenavn + " " + leverandoer + " " + maengde);
 				line = buildString(varenavn, leverandoer, maengde);
 				System.out.println(line);
 			}

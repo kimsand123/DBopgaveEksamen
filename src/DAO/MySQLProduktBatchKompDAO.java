@@ -1,4 +1,4 @@
-package daoimpl01917;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
 
-import DAO.DALException;
+import DAOinterfaces.IDAOProduktBatchKomp;
+import DTO.ProduktBatchKompDTO;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
-import daointerfaces01917.ProduktBatchKompDAO;
-import dto01917.ProduktBatchKompDTO;
 
-public class MySQLProduktBatchKompDAO implements ProduktBatchKompDAO {
+public class MySQLProduktBatchKompDAO implements IDAOProduktBatchKomp {
 
 	public ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws DALException {
 		Connection db = null;

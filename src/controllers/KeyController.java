@@ -3,7 +3,7 @@ package controllers;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import DAO.DALException;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
 import connector01917.Constant;
 import enums.TableNames;

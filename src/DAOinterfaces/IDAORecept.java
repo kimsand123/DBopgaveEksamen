@@ -1,11 +1,11 @@
-package daointerfaces01917;
+package DAOinterfaces;
 
 import java.util.List;
 
-import DAO.DALException;
-import dto01917.ReceptDTO;
+import DTO.ReceptDTO;
+import ExceptionHandling.DALException;
 
-public interface ReceptDAO {
+public interface IDAORecept {
 	ReceptDTO getRecept(int receptId) throws DALException;
 	List<ReceptDTO> getReceptList() throws DALException;
 	void createRecept(ReceptDTO recept) throws DALException;

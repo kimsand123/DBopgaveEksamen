@@ -1,4 +1,4 @@
-package daoimpl01917;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import DAO.DALException;
+import DAOinterfaces.IDAOProduktBatch;
+import DTO.ProduktBatchDTO;
+import DTO.ProduktBatchKompDTO;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
-import daointerfaces01917.ProduktBatchDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.ProduktBatchKompDTO;
 
-public class MySQLProduktBatchDAO implements ProduktBatchDAO {
+public class MySQLProduktBatchDAO implements IDAOProduktBatch {
 
 	
 	public ProduktBatchDTO getProduktBatch(int pbId) throws DALException {

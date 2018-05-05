@@ -2,13 +2,15 @@ package testCases;
 
 import java.io.IOException;
 import java.util.List;
-import DAO.DALException;
-import daoimpl01917.MySQLReceptDAO;
-import daoimpl01917.MySQLProduktBatchDAO;
-import daoimpl01917.MySQLProduktBatchKompDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.ProduktBatchKompDTO;
-import dto01917.ReceptKompDTOtest;
+
+import DAO.MySQLProduktBatchDAO;
+import DAO.MySQLProduktBatchKompDAO;
+import DAO.MySQLReceptDAO;
+import DTO.ProduktBatchDTO;
+import DTO.ProduktBatchKompDTO;
+import DTO.ReceptKompDTOtest;
+import ExceptionHandling.DALException;
+
 import java.util.Scanner;
 
 /**

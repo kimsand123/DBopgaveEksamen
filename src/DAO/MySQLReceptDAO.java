@@ -1,4 +1,4 @@
-package daoimpl01917;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,15 +8,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import DAO.DALException;
+import DAOinterfaces.IDAORecept;
+import DTO.RaavareDTO;
+import DTO.ReceptDTO;
+import DTO.ReceptKompDTO;
+import DTO.ReceptKompDTOtest;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
-import daointerfaces01917.ReceptDAO;
-import dto01917.RaavareDTO;
-import dto01917.ReceptDTO;
-import dto01917.ReceptKompDTO;
-import dto01917.ReceptKompDTOtest;
 
-public class MySQLReceptDAO implements ReceptDAO {
+public class MySQLReceptDAO implements IDAORecept {
 
 	// TODO move to other DAO receptkomp?
 	public List<ReceptKompDTOtest> visOpskrift(String opskriftNavn) throws DALException {

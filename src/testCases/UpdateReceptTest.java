@@ -1,9 +1,9 @@
 package testCases;
 
+import DTO.RaavareDTO;
+import DTO.ReceptDTO;
+import DTO.ReceptKompDTO;
 import controllers.ReceptController;
-import dto01917.RaavareDTO;
-import dto01917.ReceptDTO;
-import dto01917.ReceptKompDTO;
 import tools.KeyValue;
 
 public class UpdateReceptTest {

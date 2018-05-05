@@ -3,13 +3,13 @@ package testCases;
 import java.util.ArrayList;
 import java.util.List;
 
-import daoimpl01917.MySQLReceptDAO;
-import dto01917.ProduktBatchDTO;
-import dto01917.ReceptKompDTOtest;
+import DAO.MySQLReceptDAO;
+import DTO.ProduktBatchDTO;
+import DTO.ReceptKompDTOtest;
 import testCases.TestCaseLavOpskrift;
 public class MainTestCaseLavOpskrift {
 
-	public static void main(String[] args) {
+	public static void Run() {
 		/*
 		 * Der vaelges opskrift
 		 * Aktivt input: {recept_navn}
