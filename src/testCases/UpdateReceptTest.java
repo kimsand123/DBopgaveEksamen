@@ -3,6 +3,7 @@ package testCases;
 import DTO.RaavareDTO;
 import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
+import ExceptionHandling.DALException;
 import controllers.ReceptController;
 import tools.KeyValue;
 
@@ -37,7 +38,7 @@ public class UpdateReceptTest {
 		return new ReceptKompDTO(recept_id, raavare.getKey(), nomNetto, tolerance);
 	}
 
-	private static void printRaavare(ReceptController recCtrl) {
+	private static void printRaavare(ReceptController recCtrl) throws DALException {
 
 		for (RaavareDTO item : recCtrl.getRaavareList()) {
 			System.out.println(item);
