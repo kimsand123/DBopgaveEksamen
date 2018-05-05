@@ -8,13 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import DAOinterfaces.IDAORecept;
 import DTO.RaavareDTO;
 import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import DTO.ReceptKompDTOtest;
 import connector01917.Connector;
 
-public class MySQLReceptDAO implements ReceptDAO {
+public class MySQLReceptDAO implements IDAORecept {
 
 	// TODO move to other DAO receptkomp?
 	public List<ReceptKompDTOtest> visOpskrift(String opskriftNavn) throws DALException {

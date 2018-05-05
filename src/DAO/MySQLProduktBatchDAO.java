@@ -7,11 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
+import DAOinterfaces.IDAOProduktBatch;
 import DTO.ProduktBatchDTO;
 import DTO.ProduktBatchKompDTO;
 import connector01917.Connector;
 
-public class MySQLProduktBatchDAO implements ProduktBatchDAO {
+public class MySQLProduktBatchDAO implements IDAOProduktBatch {
 
 	
 	public ProduktBatchDTO getProduktBatch(int pbId) throws DALException {
