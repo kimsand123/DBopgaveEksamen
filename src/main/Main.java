@@ -15,10 +15,14 @@ public class Main {
 		
 		//UserTest.Run();
 		//sc.nextLine();
+		System.out.println("Opdatering af en recept");
+		sc.nextLine();
 		new UpdateReceptTest().Run(1);
 		sc.nextLine();
 		//MainTestCaseLavOpskrift.Run();
 		//sc.nextLine();
+		System.out.println("List leverandører og produkter hvor mængden er >= 100");
+		sc.nextLine();
 		new TestProductNProvider().Run();
 		sc.nextLine();
 		System.out.println("slutPrut");
