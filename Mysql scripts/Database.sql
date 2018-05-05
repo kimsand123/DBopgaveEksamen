@@ -236,8 +236,6 @@ VIEW `v_product_provider_list` AS
         ((`raavare`
         JOIN `raavarebatch` ON ((`raavare`.`raavare_id` = `raavarebatch`.`raavare_id`)))
         JOIN `leverandoer` ON ((`raavarebatch`.`lev_id` = `leverandoer`.`lev_id`)))
-    WHERE
-        (`raavarebatch`.`maengde` >= 100)
     ORDER BY `raavare`.`raavare_navn`
 // Delimiter ;
  
@@ -428,7 +426,7 @@ opr_fornavn = fornavn_input,
 opr_efternavn = efternavn_input,
 ini = ini_input,
 cpr = cpr_input,
-password = pass_input 
+password = pass_input
 WHERE opr_id = id_input;
 
 # UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
@@ -471,6 +469,33 @@ IF pharmacist_input != 0 THEN
 	END IF;
 END IF;
 
+END
+  // Delimiter ;
+  
+Delimiter //
+CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_delete_medarbejder`(IN id_input INT(2))
+BEGIN
+DELETE FROM operatoer
+WHERE (opr_id=id_input);
+END
+  // Delimiter ;
+
+Delimiter //
+CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_show_recept_ver2`(IN recept_navn_input VARCHAR(20))
+BEGIN
+SELECT recept_id, raavare, raavare_id, maengde, tolerance
+FROM v_recepter_ver2
+WHERE recept=recept_navn_input;
+END
+// Delimiter ;
+
+/* Tilføjer recept komp til recept */
+DROP Procedure if  exists sp_addKompToRecept;
+DELIMITER //
+CREATE DEFINER = CURRENT_USER  PROCEDURE sp_addKompToRecept(IN pRecept_id INT, IN pRaavare_id INT, IN pNom_netto double, IN pTolerance double)
+
+BEGIN	
+    INSERT INTO receptkomponent(recept_id, raavare_id, nom_netto, tolerance) VALUES (pRecept_id, pRaavare_id, pNom_netto, pTolerance);
 END
 // DELIMITER ;
 
