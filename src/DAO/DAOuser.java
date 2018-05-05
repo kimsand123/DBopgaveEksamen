@@ -5,7 +5,6 @@ import connector01917.Constant;
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
 import DTO.UserDTO;
-import ExceptionHandling.DALException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,13 +13,10 @@ import java.util.List;
 public class DAOuser {
 	Connection conn;
 
-	public DAOuser() {
-		try {
-			conn = Connector.getConnection();
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public DAOuser(Connection conn) {
+	
+	this.conn = conn;
+	
 	}
 
 	public void createUser(UserDTO userDTO) {
@@ -106,7 +102,6 @@ public class DAOuser {
 	public ArrayList<UserDTO> getUserList() {
 		ResultSet rs = null;
 		Statement st = null;
-		
 		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
 		try {
 			st = conn.createStatement();
@@ -115,6 +110,7 @@ public class DAOuser {
 			rs = st.getResultSet();
 
 			while (rs.next() == true) {
+
 				if (rs.getInt(1) >= Highest) {
 					Highest = rs.getInt(1);
 				}
@@ -122,42 +118,35 @@ public class DAOuser {
 				User.setUser_id(rs.getInt(1));
 
 				User.setUser_fornavn(rs.getString(2));
-				
+
 				User.setUser_efternavn(rs.getString(3));
-				
+
 				User.setUser_ini(rs.getString(4));
-				
+
 				User.setUser_cpr(rs.getString(5));
-				
+
 				User.setUser_password(rs.getString(6));
-				
+
 				userList.add(User);
+
 			}
 
 			st.executeQuery("Select * From v_view_roles");
 			rs = st.getResultSet();
 			ArrayList<String> Roles = new ArrayList<String>();
 
-			for (int x = 0; x <= Highest; x++) {
+			for (UserDTO user : userList) {
 
 				while (rs.next() == true) {
 
-					if (rs.getInt(1) == userList.get(x).getUser_id()) {
+					if (rs.getInt(1) == user.getUser_id()) {
 						Roles.add(rs.getString(2));
 					}
 
 				}
 
-				for(int i = 0; i < userList.size(); i++)
-				{
-					if(userList.get(i).getUser_id() == x)
-					{
-						userList.get(i).setRoles(Roles);
-					}
-					
-				}
-				
-				
+				user.setRoles(Roles);
+
 				rs.beforeFirst();
 			}
 
@@ -175,7 +164,8 @@ public class DAOuser {
 		CallableStatement castm = null;
 		try {
 			castm = conn.prepareCall("{call sp_delete_medarbejder(?)");
-			castm.setInt(1, userId);
+			
+			castm.setInt(1, userId );
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -189,6 +179,15 @@ public class DAOuser {
 			e.printStackTrace();
 		}
 
+	}
+	public void closeUserDAO()
+	{
+		try {
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
