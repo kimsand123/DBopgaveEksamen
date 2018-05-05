@@ -389,19 +389,19 @@ IN pharmacist_input INT(1),
 IN masterchef_input INT(1))
 Begin
 INSERT INTO operatoer (opr_id,opr_fornavn, opr_efternavn,ini,cpr,password) VALUES (id_input,fornavn_input,efternavn_input,ini_input,cpr_input,pass_input);
-IF NOT admin_input IS NULL OR admin_input != '' then
+IF admin_input != 0 then
 insert into operatoer_roller (opr_id,rolle_navn) 
 value(id_input, 'Administrator');
 END IF;
-IF NOT foreman_input IS NULL OR foreman_input != '' THEN
+IF foreman_input != 0 THEN
 insert into operatoer_roller (opr_id,rolle_navn) 
 value(id_input, 'Foreman');
 END IF;
-IF NOT masterchef_input IS NULL OR masterchef_input  != '' THEN
+IF  masterchef_input  != 0 THEN
 insert into operatoer_roller (opr_id,rolle_navn) 
 value(id_input, 'Master_Chef');
 END IF;
-IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
+IF  pharmacist_input != 0 THEN
 insert into operatoer_roller (opr_id,rolle_navn) 
 value(id_input, 'Operatoer');
 END IF;
@@ -433,7 +433,7 @@ WHERE opr_id = id_input;
 
 # UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT admin_input IS NULL OR admin_input != '' THEN
+IF admin_input != 0 THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Administrator' WHERE opr_id = id_input;
    ELSE
@@ -443,7 +443,7 @@ END IF;
 
 # UPDATE FOREMAN ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT foreman_input IS NULL OR foreman_input != '' THEN
+IF foreman_input != 0 THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Foreman' WHERE opr_id = id_input;
    ELSE
@@ -453,7 +453,7 @@ END IF;
 
 # UPDATE MASTER CHEF ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT masterchef_input IS NULL OR masterchef_input != '' THEN
+IF masterchef_input != 0 THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Master_Chef' WHERE opr_id = id_input;
    ELSE
@@ -463,7 +463,7 @@ END IF;
 
 # UPDATE OPERATOER ROLE IF EXISTS OR INSERT IF NOT
 
-IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
+IF pharmacist_input != 0 THEN
 	IF EXISTS (SELECT * FROM operatoer_roller WHERE opr_id = id_input) THEN
 		UPDATE operatoer_roller SET rolle_navn = 'Operatoer' WHERE opr_id = id_input;
    ELSE
@@ -471,33 +471,6 @@ IF NOT pharmacist_input IS NULL OR pharmacist_input != '' THEN
 	END IF;
 END IF;
 
-END
-  // Delimiter ;
-  
-Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_delete_medarbejder`(IN id_input INT(2))
-BEGIN
-DELETE FROM operatoer
-WHERE (opr_id=id_input);
-END
-  // Delimiter ;
-
-Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_show_recept_ver2`(IN recept_navn_input VARCHAR(20))
-BEGIN
-SELECT recept_id, raavare, raavare_id, maengde, tolerance
-FROM v_recepter_ver2
-WHERE recept=recept_navn_input;
-END
-// Delimiter ;
-
-/* Tilføjer recept komp til recept */
-DROP Procedure if  exists sp_addKompToRecept;
-DELIMITER //
-CREATE DEFINER = CURRENT_USER  PROCEDURE sp_addKompToRecept(IN pRecept_id INT, IN pRaavare_id INT, IN pNom_netto double, IN pTolerance double)
-
-BEGIN	
-    INSERT INTO receptkomponent(recept_id, raavare_id, nom_netto, tolerance) VALUES (pRecept_id, pRaavare_id, pNom_netto, pTolerance);
 END
 // DELIMITER ;
 
