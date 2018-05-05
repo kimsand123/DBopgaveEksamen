@@ -64,9 +64,5 @@ public class PrettyPrintTester{
 
 		PrettyPrint ct = new PrettyPrint(headers,content);
 		ct.printTable();
-	}
-
-	public static void main(String[] args) {
-		new PrettyPrintTester();
-	}
+	}	
 }

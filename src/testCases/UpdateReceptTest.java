@@ -1,11 +1,15 @@
 package testCases;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import DTO.RaavareDTO;
 import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import ExceptionHandling.DALException;
 import controllers.ReceptController;
 import tools.KeyValue;
+import tools.PrettyPrint;
 
 public class UpdateReceptTest {
 
@@ -14,23 +18,21 @@ public class UpdateReceptTest {
 		ReceptDTO recept = recCtrl.getRecept(receptId);
 		int recept_id = recept.getReceptId();
 
-		System.out.println("Før opdatering af recept");
-		printRecepter(recCtrl);
+		printRecepter(recCtrl, "Før opdatering af recept");
 
 		System.out.println();
 
 		recept.clearComponents();
-		recept.addComponent(createReceptKomp(recept_id, ReceptController.DEJ, 10, 0.8));
-		//recept.addComponent(createReceptKomp(recept_id, ReceptController.OST, 10, 0.8));		
-		recept.addComponent(createReceptKomp(1, ReceptController.CHAMPIGNON, 10, 0.8));
-		//recept.addComponent(createReceptKomp(1, ReceptController.SKINKE, 10, 0.8));
-		recept.addComponent(createReceptKomp(1, ReceptController.TOMAT, 10, 0.8));
+		// recept.addComponent(createReceptKomp(recept_id, ReceptController.DEJ, 10,
+		// 0.8));
+		// recept.addComponent(createReceptKomp(recept_id, ReceptController.OST, 10,
+		// 0.8));
+		recept.addComponent(createReceptKomp(recept_id, ReceptController.CHAMPIGNON, 10, 0.8));
+		recept.addComponent(createReceptKomp(recept_id, ReceptController.SKINKE, 10, 0.8));
+		recept.addComponent(createReceptKomp(recept_id, ReceptController.TOMAT, 10, 0.8));
 		recCtrl.updateRecept(recept);
 
-		System.out.println();
-		System.out.println("Efter opdatering af recept");
-		printRecepter(recCtrl);
-
+		printRecepter(recCtrl, "Efter opdatering af recept");
 	}
 
 	private static ReceptKompDTO createReceptKomp(int recept_id, KeyValue<Integer, String> raavare, double nomNetto,
@@ -46,23 +48,37 @@ public class UpdateReceptTest {
 
 	}
 
-	private static void printRecepter(ReceptController recCtrl) {
+	private static void printRecepter(ReceptController recCtrl, String heading) {
+
+		System.out.println("==> " + heading);
+
+		ArrayList<String> headers = new ArrayList<String>();
+		headers.add("Opskrift");
+		headers.add("Ingredienser");
+
+		ArrayList<ArrayList<String>> content = new ArrayList<ArrayList<String>>();
 
 		for (ReceptDTO recept : recCtrl.getRecepter()) {
-			
-			String s = String.format("Recept nr.: %s - %s", recept.getReceptId(), recept.getReceptNavn());
-			
-			s+= " [";
-			
-			System.out.print(s);
+
+			String comps = "";
 
 			for (ReceptKompDTO item : recept.getComponents()) {
-				System.out.print(item.getNavn() + ", ");
+
+				if (comps.length() == 0)
+					comps += item.getNavn();
+				else
+					comps +=  ", " + item.getNavn();
 			}
 
-			System.out.print("]");
-			// System.out.println();
-			System.out.println();
+			ArrayList<String> row = new ArrayList<String>();
+			row.add(recept.getReceptNavn());
+			row.add(comps);
+
+			content.add(row);
+
 		}
+
+		PrettyPrint pp = new PrettyPrint(headers, content);
+		pp.printTable();
 	}
 }

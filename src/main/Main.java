@@ -1,7 +1,6 @@
 package main;
 
 import java.util.Scanner;
-
 import testCases.*;
 
 public class Main {
@@ -12,8 +11,7 @@ public class Main {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		
-		UserTest.Run();
+		//UserTest.Run();
 		//sc.nextLine();
 		//new UpdateReceptTest().Run(1);
 		//sc.nextline();
@@ -26,7 +24,7 @@ public class Main {
 //		sc.nextLine();
 //		new TestProductNProvider().Run();
 //		sc.nextLine();
-//		System.out.println("slutPrut");
+		System.out.println("slutPrut");
 	}
 	
 	
