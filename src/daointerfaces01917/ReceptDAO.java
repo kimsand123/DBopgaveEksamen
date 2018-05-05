@@ -3,7 +3,7 @@ package daointerfaces01917;
 import java.util.List;
 
 import DAO.DALException;
-import dto01917.ReceptDTO;
+import DTO.ReceptDTO;
 
 public interface ReceptDAO {
 	ReceptDTO getRecept(int receptId) throws DALException;

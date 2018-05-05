@@ -8,12 +8,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import DTO.RaavareDTO;
+import DTO.ReceptDTO;
+import DTO.ReceptKompDTO;
 import DTO.ReceptKompDTOtest;
 import connector01917.Connector;
 import daointerfaces01917.ReceptDAO;
-import dto01917.RaavareDTO;
-import dto01917.ReceptDTO;
-import dto01917.ReceptKompDTO;
 
 public class MySQLReceptDAO implements ReceptDAO {
 

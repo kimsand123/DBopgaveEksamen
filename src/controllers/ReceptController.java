@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import DAO.DALException;
 import DAO.MySQLReceptDAO;
-import dto01917.RaavareDTO;
-import dto01917.ReceptDTO;
+import DTO.RaavareDTO;
+import DTO.ReceptDTO;
 import tools.KeyValue;
 
 /**
