@@ -13,7 +13,6 @@ import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import DTO.ReceptKompDTOtest;
 import connector01917.Connector;
-import daointerfaces01917.ReceptDAO;
 
 public class MySQLReceptDAO implements ReceptDAO {
 

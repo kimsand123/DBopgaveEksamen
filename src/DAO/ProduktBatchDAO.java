@@ -1,8 +1,7 @@
-package daointerfaces01917;
+package DAO;
 
 import java.util.List;
 
-import DAO.DALException;
 import DTO.ProduktBatchDTO;
 
 public interface ProduktBatchDAO {

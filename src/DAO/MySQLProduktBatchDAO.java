@@ -10,7 +10,6 @@ import java.util.List;
 import DTO.ProduktBatchDTO;
 import DTO.ProduktBatchKompDTO;
 import connector01917.Connector;
-import daointerfaces01917.ProduktBatchDAO;
 
 public class MySQLProduktBatchDAO implements ProduktBatchDAO {
 
