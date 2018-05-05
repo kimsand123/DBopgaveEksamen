@@ -1,9 +1,8 @@
 package testCases;
 
 import java.sql.Connection;
+import ExceptionHandling.*;
 import java.util.ArrayList;
-
-import DAO.DALException;
 import DAO.DAOuser;
 import DTO.UserDTO;
 import connector01917.Connector;
@@ -14,9 +13,9 @@ public class UserTest {
 		Connection conn = null;
 		try {
 			conn = Connector.getConnection();
-		} catch (DALException e1) {
+		} catch (DALException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 		ArrayList<String> Roles = new ArrayList<String>();
 		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
@@ -40,24 +39,30 @@ public class UserTest {
 		catch(Exception e){}
 		// laver en n bruger og printer listen
 		DAO.createUser(DTO);
+		
+		
 		userList = DAO.getUserList();
 		printlist(userList);
+	/*	
 		System.out.println("Press Enter to change something about the new user");
 		try{System.in.read();}
 		catch(Exception e){}
-		/*
-		// opdatere nogle celler og printer listn ud
-		DTO.setUser_id(15);
-		DTO.setUser_efternavn("Sørensen");
+		
+		// opdatere nogle celler og printer listen ud
+		DTO.setUser_fornavn("Lasse");
+		DTO.setUser_efternavn("Soerensen");
 		DAO.updateUser(DTO);
-		*/
+		
 		// Printer vores bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
-		System.out.println("Press Enter to make the user Disapear");
+		*/
+		System.out.println("Press Enter to make the user disappear");
 		try{System.in.read();}
 		catch(Exception e){}
-		DAO.deleteUser(10);
+		
+		DAO.deleteUser(DTO.getUser_id());
+		
 		// Printer listen af bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
