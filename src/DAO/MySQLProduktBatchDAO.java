@@ -1,4 +1,4 @@
-package daoimpl01917;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import DAO.DALException;
 import DTO.ProduktBatchDTO;
 import DTO.ProduktBatchKompDTO;
 import connector01917.Connector;

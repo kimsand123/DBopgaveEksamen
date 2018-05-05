@@ -105,7 +105,7 @@ public class DAOuser {
 	public ArrayList<UserDTO> getUserList() {
 		ResultSet rs = null;
 		Statement st = null;
-		UserDTO User = new UserDTO();
+		
 		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
 		try {
 			st = conn.createStatement();
@@ -117,7 +117,7 @@ public class DAOuser {
 				if (rs.getInt(1) >= Highest) {
 					Highest = rs.getInt(1);
 				}
-
+				UserDTO User = new UserDTO();
 				User.setUser_id(rs.getInt(1));
 
 				User.setUser_fornavn(rs.getString(2));

@@ -1,4 +1,4 @@
-package daoimpl01917;
+package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import DAO.DALException;
 import DTO.ReceptKompDTOtest;
 import connector01917.Connector;
 import daointerfaces01917.ReceptDAO;

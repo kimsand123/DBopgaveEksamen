@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import DAO.DALException;
-import daoimpl01917.MySQLReceptDAO;
+import DAO.MySQLReceptDAO;
 import dto01917.RaavareDTO;
 import dto01917.ReceptDTO;
 import tools.KeyValue;
