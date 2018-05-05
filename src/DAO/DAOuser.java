@@ -141,13 +141,13 @@ public class DAOuser {
 
 				while (rs.next() == true) {
 
-					if (rs.getInt(1) ==userList.get(x).getUser_id()) {
+					if (rs.getInt(1) == userList.get(x).getUser_id()) {
 						Roles.add(rs.getString(2));
 					}
 
 				}
 
-				for(int i = 0; i <= userList.size(); i++)
+				for(int i = 0; i < userList.size(); i++)
 				{
 					if(userList.get(i).getUser_id() == x)
 					{

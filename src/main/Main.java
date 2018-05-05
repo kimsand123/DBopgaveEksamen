@@ -1,9 +1,10 @@
 package main;
 
-import testCases.UpdateReceptTest;
+import testCases.*;
 
 public class Main {
 	public static void main(String[] args) {
-		new UpdateReceptTest().Run(1);
+		UserTest.Run();
+		//new UpdateReceptTest().Run(1);
 	}
 }
