@@ -14,7 +14,7 @@ import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import DTO.ReceptKompDTOtest;
 import ExceptionHandling.DALException;
-import connector01917.Connector;
+import connector.Connector;
 
 public class MySQLReceptDAO implements IDAORecept {
 

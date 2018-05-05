@@ -3,10 +3,11 @@ package testCases;
 import java.sql.Connection;
 import java.util.Scanner;
 import ExceptionHandling.*;
+import connector.Connector;
+
 import java.util.ArrayList;
 import DAO.DAOuser;
 import DTO.UserDTO;
-import connector01917.Connector;
 
 public class UserTest {
 

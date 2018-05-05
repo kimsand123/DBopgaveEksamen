@@ -11,7 +11,7 @@ import DAOinterfaces.IDAOProduktBatch;
 import DTO.ProduktBatchDTO;
 import DTO.ProduktBatchKompDTO;
 import ExceptionHandling.DALException;
-import connector01917.Connector;
+import connector.Connector;
 
 public class MySQLProduktBatchDAO implements IDAOProduktBatch {
 

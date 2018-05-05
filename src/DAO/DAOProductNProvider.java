@@ -3,11 +3,12 @@ package DAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import connector01917.Connector;
-import connector01917.Constant;
+
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
 import ExceptionHandling.DALException;
+import connector.Connector;
+import connector.Constant;
 
 
 public class DAOProductNProvider implements IDAOProductNProvider {

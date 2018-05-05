@@ -1,4 +1,4 @@
-package connector01917;
+package connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

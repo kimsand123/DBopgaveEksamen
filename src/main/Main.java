@@ -21,11 +21,6 @@ public class Main {
 		//sc.nextLine();
 		//productnproviderlist.TestProductNProvider();
 		//sc.nextLine();
-		//System.out.println("slut");
-		//System.out.println("List leverandoerer og produkter hvor maengden er >= 100");
-		//sc.nextLine();
-		//new TestProductNProvider().Run();
-		//sc.nextLine();
 //		System.out.println("List leverandører og produkter med sum pr gruppe. leverandør.vare");
 //		sc.nextLine();
 //		new TestProductNProvider().Run();
