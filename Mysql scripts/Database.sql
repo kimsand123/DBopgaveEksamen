@@ -428,7 +428,7 @@ opr_fornavn = fornavn_input,
 opr_efternavn = efternavn_input,
 ini = ini_input,
 cpr = cpr_input,
-password = pass_input 
+password = pass_input, 
 WHERE opr_id = id_input;
 
 # UPDATE ADMIN ROLE IF EXISTS OR INSERT IF NOT
