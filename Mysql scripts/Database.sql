@@ -236,8 +236,6 @@ VIEW `v_product_provider_list` AS
         ((`raavare`
         JOIN `raavarebatch` ON ((`raavare`.`raavare_id` = `raavarebatch`.`raavare_id`)))
         JOIN `leverandoer` ON ((`raavarebatch`.`lev_id` = `leverandoer`.`lev_id`)))
-    WHERE
-        (`raavarebatch`.`maengde` >= 100)
     ORDER BY `raavare`.`raavare_navn`
 // Delimiter ;
  
