@@ -9,7 +9,7 @@ import dto01917.ReceptKompDTOtest;
 import testCases.TestCaseLavOpskrift;
 public class MainTestCaseLavOpskrift {
 
-	public static void main(String[] args) {
+	public static void Run() {
 		/*
 		 * Der vaelges opskrift
 		 * Aktivt input: {recept_navn}
