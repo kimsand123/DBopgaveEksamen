@@ -475,11 +475,11 @@ END
   // Delimiter ;
   
 Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_delete_medarbejder`(IN id_input VARCHAR(5))
+CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_delete_medarbejder`(IN id_input INT(2))
 BEGIN
 DELETE FROM operatoer
 WHERE (opr_id=id_input);
-END 
+END
   // Delimiter ;
 
 Delimiter //
