@@ -7,6 +7,7 @@ import connector01917.Connector;
 import connector01917.Constant;
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
+import ExceptionHandling.DALException;
 
 
 public class DAOProductNProvider implements IDAOProductNProvider {

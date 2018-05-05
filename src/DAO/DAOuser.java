@@ -5,6 +5,7 @@ import connector01917.Constant;
 import DAOinterfaces.*;
 import DTO.ProductNProviderDTO;
 import DTO.UserDTO;
+import ExceptionHandling.DALException;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -10,6 +10,7 @@ import java.util.List;
 import DAOinterfaces.IDAOProduktBatch;
 import DTO.ProduktBatchDTO;
 import DTO.ProduktBatchKompDTO;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
 
 public class MySQLProduktBatchDAO implements IDAOProduktBatch {

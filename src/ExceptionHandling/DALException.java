@@ -1,4 +1,4 @@
-package DAO;
+package ExceptionHandling;
 
 public class DALException extends Exception
 {

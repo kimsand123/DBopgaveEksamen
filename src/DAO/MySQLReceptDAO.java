@@ -13,6 +13,7 @@ import DTO.RaavareDTO;
 import DTO.ReceptDTO;
 import DTO.ReceptKompDTO;
 import DTO.ReceptKompDTOtest;
+import ExceptionHandling.DALException;
 import connector01917.Connector;
 
 public class MySQLReceptDAO implements IDAORecept {

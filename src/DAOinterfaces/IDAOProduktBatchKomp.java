@@ -2,8 +2,8 @@ package DAOinterfaces;
 
 import java.util.List;
 
-import DAO.DALException;
 import DTO.ProduktBatchKompDTO;
+import ExceptionHandling.DALException;
 
 public interface IDAOProduktBatchKomp {
 	ProduktBatchKompDTO getProduktBatchKomp(int pbId, int rbId) throws DALException;
