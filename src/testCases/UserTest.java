@@ -43,7 +43,7 @@ public class UserTest {
 		
 		userList = DAO.getUserList();
 		printlist(userList);
-		
+	/*	
 		System.out.println("Press Enter to change something about the new user");
 		try{System.in.read();}
 		catch(Exception e){}
@@ -56,7 +56,7 @@ public class UserTest {
 		// Printer vores bruger ud.
 		userList = DAO.getUserList();
 		printlist(userList);
-		
+		*/
 		System.out.println("Press Enter to make the user disappear");
 		try{System.in.read();}
 		catch(Exception e){}
