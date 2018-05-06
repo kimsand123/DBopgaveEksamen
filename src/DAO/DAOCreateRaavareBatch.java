@@ -79,7 +79,7 @@ public class DAOCreateRaavareBatch {
 	try {
 		ResultSet a =st.executeQuery();
 		while(a.next()) {double b = a.getDouble("maengde");
-		System.out.println(b+"det her burde vaere et tal");}
+		System.out.println("der er en maengde paa "+b);}
 	} catch (SQLException e) {
 		System.out.println("execute query fucked up");
 		e.printStackTrace();
