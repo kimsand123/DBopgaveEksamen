@@ -24,7 +24,7 @@ public class MySQLProduktBatchDAO implements IDAOProduktBatch {
 		
 		try {
 			
-			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
+			db = Connector.connectToDatabase("jdbc:mysql://localhost:3306/projekt", "root", "");
 //			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "SELECT * FROM produktbatch WHERE pb_id=?;";
@@ -60,7 +60,7 @@ public class MySQLProduktBatchDAO implements IDAOProduktBatch {
 		
 		try {
 			
-			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
+			db = Connector.connectToDatabase("jdbc:mysql://localhost:3306/projekt", "root", "");
 			//st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "CALL fm_create_productbatch (?,?,?)";

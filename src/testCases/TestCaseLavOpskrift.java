@@ -98,7 +98,7 @@ public class TestCaseLavOpskrift {
 		try {
 			System.out.println("afvejning foretaget, produktbatchkomponent oprettes:");
 			System.out.println();
-			pbkDAO.createProduktBatchKomp(pbKomp);
+				pbkDAO.createProduktBatchKomp(pbKomp);
 			System.out.println("produktbatchkomp for "+komponent.getRaavareNavn()+" er oprettet");
 			scan.next();
 			System.out.println();
@@ -128,6 +128,10 @@ public class TestCaseLavOpskrift {
 			return 1;
 		case 2:
 			return 3;
+		case 6:
+			return 6;
+		case 7:
+			return 7;
 		case 5:
 			return 5;
 		default:

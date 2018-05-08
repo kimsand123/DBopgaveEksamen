@@ -42,8 +42,8 @@ public class Connector
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 
 			return DriverManager.getConnection(
-					"jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2?allowMultiQueries=true", "nybaad_dk",
-					"rgkd49cz");
+					"jdbc:mysql://localhost:3306/projekt", "root",
+					"");
 		} catch (Exception e) {
 			throw new DALException(e);
 		}

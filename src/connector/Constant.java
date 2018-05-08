@@ -6,10 +6,10 @@ package connector;
 public abstract class Constant
 {
 	public static final String
-		server					= "mysql3.unoeuro.com",  // database-serveren
-		database				= "nybaad_dk_db2",  //"jdbcdatabase", // navnet paa din database = dit studienummer
-		username				= "nybaad_dk", // dit brugernavn = dit studienummer 
-		password				= "rgkd49cz"; // dit password som du har valgt til din database
+		server					= "localhost",  // database-serveren
+		database				= "projekt",  //"jdbcdatabase", // navnet paa din database = dit studienummer
+		username				= "root", // dit brugernavn = dit studienummer 
+		password				= ""; // dit password som du har valgt til din database
 	
 	public static final int
 		port					= 3306;

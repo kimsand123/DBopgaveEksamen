@@ -21,7 +21,7 @@ public class MySQLProduktBatchKompDAO implements IDAOProduktBatchKomp {
 		
 		try {
 			
-			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
+			db = Connector.connectToDatabase("jdbc:mysql://localhost:3306/projekt", "root", "");
 //			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
 			String query = "CALL sp_get_produktbatchkomp (?,?)";
@@ -65,10 +65,10 @@ public class MySQLProduktBatchKompDAO implements IDAOProduktBatchKomp {
 		
 		try {
 			
-			db = Connector.connectToDatabase("jdbc:mysql://mysql3.unoeuro.com:3306/nybaad_dk_db2", "nybaad_dk", "rgkd49cz");
+			db = Connector.connectToDatabase("jdbc:mysql://localhost:3306/projekt","root", "");
 //			st = db.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			
-			String query = "CALL sp_create_productbatchkomponent (?,?,?,?)";
+			String query = "CALL createProduktBatchKomponent (?,?,?,?)";
 
 			PreparedStatement tmp = db.prepareStatement(query);
 			tmp.setInt(1, produktbatchkomponent.getPbId()); // produktbatchID

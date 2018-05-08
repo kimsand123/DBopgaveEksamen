@@ -9,6 +9,9 @@ DROP TABLE IF EXISTS receptkomponent;
 DROP TABLE IF EXISTS recept;
 DROP TABLE IF EXISTS raavarebatch;
 DROP TABLE IF EXISTS raavare;
+DROP TABLE IF EXISTS roller;
+DROP TABLE IF EXISTS leverandoer;
+DROP TABLE IF EXISTS operatoer_roller;
 
 SET FOREIGN_KEY_CHECKS=1;
 
@@ -192,6 +195,8 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 	DROP VIEW IF exists v_product_provider_list;
     DROP VIEW IF exists v_raavare_batches;
     DROP VIEW IF exists v_recepter_ver2;
+    DROP VIEW IF exists v_view_roles;
+    DROP VIEW IF exists v_view_users;
 
 -- ***************
 -- ***  VIEWS  ***
@@ -200,8 +205,37 @@ DELETE FROM raavare WHERE raavare_id IN (3,4);
 Delimiter // 
 CREATE OR REPLACE VIEW v_raavare AS
 SELECT * FROM raavare;
-// Delimiter;     
+// Delimiter;  
 
+Delimiter //
+CREATE 
+
+VIEW `v_view_roles` AS
+    SELECT 
+        `operatoer_roller`.`opr_id` AS `opr_id`,
+        `operatoer_roller`.`rolle_navn` AS `rolle_navn`
+    FROM
+        `operatoer_roller`
+    ORDER BY `operatoer_roller`.`opr_id`
+
+// Delimiter;
+
+Delimiter //
+CREATE 
+
+VIEW `v_view_users` AS
+    SELECT 
+        `operatoer`.`opr_id` AS `opr_id`,
+        `operatoer`.`opr_fornavn` AS `opr_navn`,
+        `operatoer`.`opr_efternavn` AS `opr_efternavn`,
+        `operatoer`.`ini` AS `opr_ini`,
+        `operatoer`.`cpr` AS `opr_cpr`,
+        `operatoer`.`password` AS `opr_password`
+    FROM
+        `operatoer`
+    ORDER BY `operatoer`.`opr_id`
+// Delimiter;
+    
 -- Viser alle recept komponenter med tilhørende råvarenavn.
 Delimiter //
 CREATE OR REPLACE VIEW v_recept_komponenter AS
@@ -224,9 +258,7 @@ produktbatch;
 
 Delimiter //
 CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `nybaad_dk`@`%` 
-    SQL SECURITY DEFINER
+
 VIEW `v_product_provider_list` AS
     SELECT DISTINCT
         `raavare`.`raavare_navn` AS `raavare_navn`,
@@ -239,14 +271,12 @@ VIEW `v_product_provider_list` AS
     WHERE
         (`raavarebatch`.`maengde` >= 100)
     GROUP BY `raavarebatch`.`lev_id` , `raavare`.`raavare_id`
-    ORDER BY `raavare`.`raavare_navn
+    ORDER BY `raavare`.`raavare_navn`
 // Delimiter ;
  
 Delimiter //
 CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `nybaad_dk`@`%` 
-    SQL SECURITY DEFINER
+
 VIEW `v_raavare_batches` AS
     SELECT DISTINCT
         `raavare`.`raavare_navn` AS `raavare_navn`,
@@ -261,9 +291,7 @@ VIEW `v_raavare_batches` AS
 
 Delimiter //
 CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `nybaad_dk`@`%` 
-    SQL SECURITY DEFINER
+
 VIEW `v_recepter_ver2` AS
     SELECT DISTINCT
         `recept`.`recept_navn` AS `recept`,
@@ -281,9 +309,7 @@ VIEW `v_recepter_ver2` AS
 /*
 Delimiter //
 CREATE 
-    ALGORITHM = UNDEFINED 
-    DEFINER = `nybaad_dk`@`%` 
-    SQL SECURITY DEFINER
+
 VIEW `v_view_users` AS
     SELECT 
         `operatoer`.`opr_id` AS `opr_id`,
@@ -307,7 +333,17 @@ DROP Procedure if  exists sp_create_medarbejder;
 DROP Procedure if  exists sp_update_medarbejder;
 DROP Procedure if  exists sp_delete_medarbejder;
 DROP Procedure if  exists sp_show_recept_ver2;
+DROP Procedure if  exists sp_get_produktbatchkomp;
 -- Stored procedure 
+
+Delimiter //
+CREATE PROCEDURE `sp_get_produktbatchkomp`(IN pb_id_input INT(11), IN rb_id_input INT (11))
+BEGIN
+SELECT pb_id, rb_id, netto, opr_id
+FROM produktbatchkomponent
+WHERE pb_id=pb_id_input AND rb_id=rb_id_input;
+END
+// Delimiter ;
 
 Delimiter // 
 Create Procedure createProduktBatchKomponent(
@@ -336,7 +372,7 @@ END
 
 Delimiter // 
 
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `fm_create_productbatch`(in pb_id_input int(11),
+CREATE PROCEDURE `fm_create_productbatch`(in pb_id_input int(11),
  in statuz_input int(11), in recept_id_input int(11))
 begin
  /*declare  new_id int(11);
@@ -348,7 +384,7 @@ set new_id = count pb_id;*/
  // Delimiter ;
  
  Delimiter //
- CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `fm_update_productbatch`(in pb_id_input int(11),
+ CREATE PROCEDURE `fm_update_productbatch`(in pb_id_input int(11),
  in statuz_input int(11), in recept_id_input int(11))
 begin
  update produktbatch
@@ -358,7 +394,7 @@ end
   // Delimiter ;
 
 Delimiter //
- CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `fm_create_raavarebatch`(in rb_id_input int(11), 
+ CREATE PROCEDURE `fm_create_raavarebatch`(in rb_id_input int(11), 
  in raavare_id_input int (11), maengde_input double , lev_id_input INT(11))
 begin
  insert into raavarebatch(rb_id, raavare_id, maengde, lev_id)
@@ -367,7 +403,7 @@ begin
   // Delimiter ;
 
 Delimiter //
- CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `fm_update_raavarebatch`(in rb_id_input int(11), 
+ CREATE PROCEDURE `fm_update_raavarebatch`(in rb_id_input int(11), 
  in raavare_id_input int (11), maengde_input double )
 begin
  update raavarebatch
@@ -377,7 +413,7 @@ begin
   // Delimiter ;
 
 Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_create_medarbejder`(
+CREATE PROCEDURE `sp_create_medarbejder`(
 IN id_input INT(2),
 IN fornavn_input VARCHAR(20),
 in efternavn_input varchar(20),
@@ -411,7 +447,7 @@ END
   // Delimiter ;
   
 Delimiter //
- CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_update_medarbejder`(
+ CREATE PROCEDURE `sp_update_medarbejder`(
 IN id_input INT(2),
 IN fornavn_input VARCHAR(20),
 IN efternavn_input varchar(20),
@@ -421,7 +457,7 @@ IN pass_input VARCHAR(20),
 IN admin_input INT(1),
 IN foreman_input INT(1),
 IN masterchef_input INT(1),
-IN pharmacist_input INT(1)
+IN operatoer_input INT(1)
 )
 Begin
 UPDATE operatoer SET 
@@ -497,7 +533,7 @@ END
   // Delimiter ;
   
 Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_delete_medarbejder`(IN id_input INT(2))
+CREATE PROCEDURE `sp_delete_medarbejder`(IN id_input INT(2))
 BEGIN
 DELETE FROM operatoer
 WHERE (opr_id=id_input);
@@ -505,7 +541,7 @@ END
   // Delimiter ;
 
 Delimiter //
-CREATE DEFINER=`nybaad_dk`@`%` PROCEDURE `sp_show_recept_ver2`(IN recept_navn_input VARCHAR(20))
+CREATE PROCEDURE `sp_show_recept_ver2`(IN recept_navn_input VARCHAR(20))
 BEGIN
 SELECT recept_id, raavare, raavare_id, maengde, tolerance
 FROM v_recepter_ver2
